@@ -1,6 +1,6 @@
 
 /*!
- *  Eloquent Javascript Exercises, Chapter 2 - Chess Board
+ *  Eloquent Javascript Exercises, Chapter 2 - Chess Board Generator
  *
  *  Write a program that creates a string that represents an 8×8 grid, using
  *  newline characters to separate lines. At each position of the grid there is
@@ -18,21 +18,23 @@
    *
    *  @param {Number} size - The width of the grid.
    *
-   *  @returns {String} - String that represents the grid;
+   *  @returns {String} - String that represents the grid.
    */
   function createChessBoard(size) {
     var str = '';
 
     for (var i = 0; i < size; i++) {
+      // Add newlines between rows
+      if (i) str += '\n';
+
       for (var j = 0; j < size; j++) {
         str += i % 2 == j % 2 ? '#' : ' ';
       }
-
-      str += '\n';
     }
 
     return str;
   }
 
-  console.log( createChessBoard(8) );
+  // Add function to DOM
+  window.createChessBoard = createChessBoard;
 }());
