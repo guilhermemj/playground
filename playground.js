@@ -27,8 +27,9 @@
       // Add newlines between rows
       if (i) str += '\n';
 
+      // Generate the pattern
       for (var j = 0; j < size; j++) {
-        str += i % 2 == j % 2 ? '#' : ' ';
+        str += (i + j) % 2 ? ' ' : '#';
       }
     }
 
