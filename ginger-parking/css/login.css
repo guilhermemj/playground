@@ -1,0 +1,54 @@
+
+/*  Universal Styles
+  ===================== */
+
+html,
+body {
+  /* Adjust typography consistency between MDL and Bootstrap */
+  font: 400 16px/20px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+.mdl-layout__content {
+  background: url('../img/login-bg.jpg') no-repeat center center / cover;
+}
+
+.main-box {
+  width: 20rem;
+  max-width: calc(100% - 1rem);
+
+  margin: 3rem auto 1.5rem;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.text-right {
+  text-align: right;
+}
+
+
+/*  Page Title
+  =============== */
+
+.title {
+  margin: .5rem 0 0 1rem;
+
+  font: 500 2rem -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+.title .alt {
+  color: #ff5722;
+}
+
+
+/*  Main Form
+  ============== */
+
+#login-form {
+  padding: 1rem;
+}
+
+.mdl-textfield {
+  width: 100%;
+}

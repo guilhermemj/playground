@@ -1,0 +1,116 @@
+
+/*  Universal Styles
+  ===================== */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.page-wrapper {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+
+  background-color: #eee;
+}
+
+.page-wrapper::before,
+.page-wrapper::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+
+/*  Header
+  =========== */
+
+.page-header {
+  background-color: #343a40;
+  height: 3.5rem;
+}
+
+.page-header::after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+/* Page title */
+.title {
+  margin: 0 0 0 1rem;
+
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 2;
+
+  float: left;
+}
+
+.title .alt {
+  color: #ff5722;
+}
+
+ /* Logout button*/
+.logout {
+  padding: 1rem;
+
+  float: right;
+}
+
+/* Mobile positioning */
+@media screen and (max-width: 767px) {
+  .page-wrapper {
+    padding-top: 3rem;
+  }
+
+  .page-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3em;
+  }
+
+  .title {
+    line-height: 1.75;
+  }
+
+  .logout {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+  }
+}
+
+
+/*  Main content
+  ================ */
+
+.main-content {
+  background: #fff;
+
+  width: 32rem;
+  max-width: calc(100% - 1rem);
+
+  margin: 2rem auto 3rem;
+  padding: 1rem;
+
+  /* Copy box-shadow code from MDL */
+  box-shadow:
+      0 4px 5px 0 rgba(0,0,0,.14),
+      0 1px 10px 0 rgba(0,0,0,.12),
+      0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+/* Car list */
+.car-list {
+  list-style: none;
+  padding: 0;
+}
+
+.car-list li {
+  padding: .25rem 0;
+}

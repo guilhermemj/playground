@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Adicionar carro | Ginger Parking</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/admin.css">
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="page-header">
+        <h1 class="title"><span class="alt">Ginger</span> Parking</h1>
+
+        <a href="./index.html" class="logout text-white">Sair</a>
+      </header>
+
+      <main class="main-content">
+        <h2 class="h3">Adicionar carro</h2>
+
+        <form id="add-car-form" novalidate>
+          <div class="row">
+            <div class="form-group col-12 col-md-6">
+              <label for="">Marca</label>
+              <input type="text" name="" class="form-control" required>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label for="">Modelo</label>
+              <input type="text" name="" class="form-control" required>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label for="">Cor</label>
+              <input type="text" name="" class="form-control" required>
+            </div>
+            <div class="form-group col-12 col-md-6">
+              <label for="">Placa</label>
+              <input type="text" name="" class="form-control text-uppercase" required pattern="[a-zA-z]{3}\d{4}">
+            </div>
+
+            <div class="form-group col-12">
+              <label for="">Avarias</label>
+              <textarea name="name" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group col-12">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" name="keys" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Chaves com manobrista</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="text-right">
+            <button type="button" class="btn btn-danger mr-1" onclick="location.href = './admin.html'">Cancelar</button>
+            <button class="btn btn-primary">Adicionar</button>
+          </div>
+        </form>
+
+      </main>
+    </div>
+
+    <script src="./js/add-car.js" charset="utf-8"></script>
+  </body>
+</html>
