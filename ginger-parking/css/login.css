@@ -34,7 +34,7 @@ button {
 
   width: 32rem;
   max-width: calc(100% - 1rem);
-  min-height: 50vh;
+  min-height: 40vh;
 
   margin: 2rem auto;
   padding: 1.5rem;
