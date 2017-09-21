@@ -7,6 +7,8 @@
   }
 
 }(function() {
+
+  // Form submission function
   document.getElementById('login-form')
     .addEventListener('submit', function(e) {
       e.preventDefault();
@@ -22,5 +24,20 @@
       setTimeout(function () {
         location.href = './admin.html';
       }, 1500);
+    });
+
+
+  // Forgot password rude responses
+  var lib = [
+    'Ninguém liga :D',
+    'Tente 123456.',
+    'Tente 00000.',
+    'O problema é seu :)',
+    'Peça uma nova senha ao RH, seilá.'
+  ];
+
+  document.querySelector('[data-action=forgot-pass]')
+    .addEventListener('click', function () {
+      alert( lib[ Math.floor(Math.random() * lib.length) ] );
     });
 }));
