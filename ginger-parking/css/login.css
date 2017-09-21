@@ -21,6 +21,14 @@ body {
   justify-content: center;
 }
 
+button {
+  cursor: pointer;
+}
+
+
+/*  Main Content
+  ================= */
+
 .main-content {
   background: #fff;
 

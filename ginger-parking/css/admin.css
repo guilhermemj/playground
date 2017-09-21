@@ -16,11 +16,14 @@ body {
   background-color: #eee;
 }
 
-.page-wrapper::before,
 .page-wrapper::after {
   content: '';
   clear: both;
-  display: table;
+  display: block;
+}
+
+button {
+  cursor: pointer;
 }
 
 
