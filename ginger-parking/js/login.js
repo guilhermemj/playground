@@ -10,28 +10,17 @@
   document.getElementById('login-form')
     .addEventListener('submit', function(e) {
       e.preventDefault();
+      e.stopPropagation();
 
-      var user = document.getElementById('username'),
-          password = document.getElementById('password');
+      this.classList.add('was-validated');
 
-      // Validate input
-      user.parentNode.classList[user.value ? 'remove' : 'add']('is-invalid');
-      password.parentNode.classList[password.value ? 'remove' : 'add']('is-invalid');
+      if ( !this.checkValidity() ) return;
 
-      if (!user.value || !password.value) return;
-
-      // Add progressbar
-      var pb = document.getElementById('progressbar');
-
-      pb.classList.remove('invisible');
-      pb.classList.add('mdl-progress__indeterminate');
+      // TODO: Add progressbar
 
       // Simulate server delay
       setTimeout(function () {
         location.href = './admin.html';
-
-        pb.classList.add('invisible');
-        pb.classList.remove('mdl-progress__indeterminate');
       }, 1500);
     });
 }));

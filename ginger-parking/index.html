@@ -5,44 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login | Ginger Parking</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-orange.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/login.css">
   </head>
   <body>
-    <div class="mdl-layout mdl-js-layout">
-      <main class="mdl-layout__content">
-        <div class="main-box mdl-color--white mdl-shadow--4dp">
-          <div id="progressbar" class="mdl-progress mdl-js-progress invisible"></div>
+    <div class="page-wrapper">
+      <main class="main-content">
+        <h1 class="title"><span class="alt">Ginger</span> Parking</h1>
 
-          <h1 class="title"><span class="alt">Ginger</span> Parking</h1>
+        <p class="mb-5">Faça login para continuar.</p>
 
-          <form id="login-form">
-            <div class="field-wrapper">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input type="text" name="username" id="username" class="mdl-textfield__input">
-                <label for="username" class="mdl-textfield__label">Usuário...</label>
-              </div>
+        <form id="login-form" novalidate>
+          <div class="row mb-3">
+            <div class="form-group col-12 col-md-6">
+              <label class="sr-only" for="username-field">Usuário</label>
+              <input type="text" name="username" id="username-field" class="form-control" placeholder="Usuário..." required>
             </div>
 
-            <div class="field-wrapper">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input type="password" name="password" id="password" class="mdl-textfield__input">
-                <label for="password" class="mdl-textfield__label">Senha...</label>
-              </div>
+            <div class="form-group col-12 col-md-6">
+              <label class="sr-only" for="password-field">Senha</label>
+              <input type="password" name="password" id="password-field" class="form-control" placeholder="Senha..." required>
             </div>
+          </div>
 
-            <div class="field-wrapper text-right">
-              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                Entrar
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="clearfix">
+            <button type="button" class="btn btn-link btn-sm" data-action="forgot-pass">Esqueci minha senha</button>
+
+            <button class="btn btn-primary text-uppercase float-right">Entrar</button>
+          </div>
+        </form>
       </main>
     </div>
 
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="./js/login.js" charset="utf-8"></script>
   </body>
 </html>
