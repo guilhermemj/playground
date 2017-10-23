@@ -118,7 +118,7 @@
     var ret = 0;
 
     for (var i = 0, l = str.length; i < l; i++) {
-      if (str[i] == char) ret++;
+      if (str.charAt(i) == char) ret++;
     }
 
     return ret;
@@ -139,7 +139,7 @@
   function countCharRecursively(str, char) {
     if (!str.length) return 0;
     
-    return (str[0] == char ? 1 : 0) + countCharRecursively(str.substring(1), char);
+    return (str.charAt(i) == char ? 1 : 0) + countCharRecursively(str.substring(1), char);
   }
   
   /**
@@ -168,7 +168,7 @@
   function trueCountCharNoSubstring(str, char, i) {
     if (i < 0) return 0;
 
-    return (str[i] == char ? 1 : 0) + trueCountCharNoSubstring(str, char, i - 1);
+    return (str.charAt(i) == char ? 1 : 0) + trueCountCharNoSubstring(str, char, i - 1);
   }
 
 }());
