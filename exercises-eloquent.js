@@ -236,6 +236,14 @@
  *  do you expect to be useful in more situations? Which one is more efficient?
  */
 (function() {
+  
+  /**
+   *  Returns a new array reversed from input.
+   *
+   *  @param {*[]} arr - Input array.
+   *
+   *  @returns {*[]} - New reversed array.
+   */
   const reverseArray = arr => {
     let revArr = [];
 
@@ -246,6 +254,11 @@
     return revArr;
   };
 
+  /**
+   *  Reverse given array.
+   *
+   *  @param {*[]} arr - Array to be reversed.
+   */
   const reverseArrayInPlace = arr => {
     for (let i = 0, end = arr.length - 1, mid = Math.floor( end / 2 ), aux; i < mid; i++ ) {
       aux = arr[i];
