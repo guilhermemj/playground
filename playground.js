@@ -343,3 +343,43 @@
     return nth(list.rest, index - 1);
   };
 }());
+
+/**
+ *  The == operator compares objects by identity. But sometimes, you would prefer to compare the values of
+ *  their actual properties.
+ *
+ *  Write a function, deepEqual, that takes two values and returns true only if they are the same value or
+ *  are objects with the same properties whose values are also equal when compared with a recursive call to
+ *  deepEqual.
+ *  To find out whether to compare two things by identity (use the === operator for that) or by looking at
+ *  their properties, you can use the typeof operator. If it produces "object" for both values, you should
+ *  do a deep comparison. But you have to take one silly exception into account: by a historical accident,
+ *  typeof null also produces "object".
+ */
+(function(){
+
+  /**
+   *  Deeply compare two entities.
+   *
+   *  @param {*} a - First entity of comparison.
+   *  @param {*} b - Second entity of comparison.
+   *
+   *  @returns {Boolean} - Equality between both entities.
+   */
+  function deepEqual(a, b) {
+    if (
+      typeof a == 'object' && a != null &&
+      typeof b == 'object' && b != null
+    ) {
+      if (Object.keys(a).length != Object.keys(b).length) return false;
+
+      for (let i in a) {
+        if ( !deepEqual( a[i], b[i] ) ) return false;
+      }
+
+      return true;
+    }
+
+    return a === b;
+  }
+}());
