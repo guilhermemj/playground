@@ -260,10 +260,14 @@
    *  @param {*[]} arr - Array to be reversed.
    */
   const reverseArrayInPlace = arr => {
-    for (let i = 0, end = arr.length - 1, mid = Math.floor( end / 2 ), aux; i < mid; i++ ) {
+    let aux,
+        endIndex  = arr.length - 1,
+        midIndex  = Math.floor( endIndex / 2 );
+
+    for (let i = 0; i < midIndex; i++ ) {
       aux = arr[i];
-      arr[i] = arr[ end - i ];
-      arr[ end - i ] = aux;
+      arr[i] = arr[ endIndex - i ];
+      arr[ endIndex - i ] = aux;
     }
   };
 }());
