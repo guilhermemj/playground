@@ -89,8 +89,8 @@
  *  indicates how many uppercase “B” characters are in the string.
  *
  *  Next, write a function called countChar that behaves like countBs, except it takes a second
- *  argument that indicates the character that is to be counted (rather than counting only uppercase
- *  “B” characters). Rewrite countBs to make use of this new function.
+ *  argument that indicates the character that is to be counted (rather than counting only
+ *  uppercase “B” characters). Rewrite countBs to make use of this new function.
  */
 (function() {
   "use strict";
@@ -183,9 +183,9 @@
  *  Next, write a sum function that takes an array of numbers and returns the sum of these numbers.
  *  Run the previous program and see whether it does indeed return 55.
  *
- *  As a bonus assignment, modify your range function to take an optional third argument that indicates
- *  the “step” value used to build up the array. If no step is given, the array elements go up by
- *  increments of one, corresponding to the old behavior. The function call range(1, 10, 2) should
+ *  As a bonus assignment, modify your range function to take an optional third argument that
+ *  indicates the “step” value used to build up the array. If no step is given, the array elements go up
+ *  by increments of one, corresponding to the old behavior. The function call range(1, 10, 2) should
  *  return [1, 3, 5, 7, 9]. Make sure it also works with negative step values so that range(5, 2, -1)
  *  produces [5, 4, 3, 2].
  */
@@ -232,8 +232,8 @@
  *  inverse order. The second, reverseArrayInPlace, does what the reverse method does: it modifies the
  *  array given as argument in order to reverse its elements. Neither may use the standard reverse method.
  *
- *  Thinking back to the notes about side effects and pure functions in the previous chapter, which variant
- *  do you expect to be useful in more situations? Which one is more efficient?
+ *  Thinking back to the notes about side effects and pure functions in the previous chapter, which
+ *  variant do you expect to be useful in more situations? Which one is more efficient?
  */
 (function() {
   
@@ -276,9 +276,9 @@
 /**
  *  Eloquent Javascript Exercises, Chapter 4 - A list
  *
- *  Objects, as generic blobs of values, can be used to build all sorts of data structures. A common data
- *  structure is the list (not to be confused with the array). A list is a nested set of objects, with the
- *  first object holding a reference to the second, the second to the third, and so on.
+ *  Objects, as generic blobs of values, can be used to build all sorts of data structures. A common
+ *  data structure is the list (not to be confused with the array). A list is a nested set of objects,
+ *  with the first object holding a reference to the second, the second to the third, and so on.
  *
  *  A nice thing about lists is that they can share parts of their structure. For example, if I create two
  *  new values {value: 0, rest: list} and {value: -1, rest: list} (with list referring to the variable
@@ -362,12 +362,14 @@
 }());
 
 /**
- *  The == operator compares objects by identity. But sometimes, you would prefer to compare the values of
- *  their actual properties.
+ *  Eloquent Javascript Exercises, Chapter 4 - Deep comparison
  *
- *  Write a function, deepEqual, that takes two values and returns true only if they are the same value or
- *  are objects with the same properties whose values are also equal when compared with a recursive call to
- *  deepEqual.
+ *  The == operator compares objects by identity. But sometimes, you would prefer to compare the values
+ *  of their actual properties.
+ *
+ *  Write a function, deepEqual, that takes two values and returns true only if they are the same value
+ *  or are objects with the same properties whose values are also equal when compared with a recursive
+ *  call to deepEqual.
  *  To find out whether to compare two things by identity (use the === operator for that) or by looking at
  *  their properties, you can use the typeof operator. If it produces "object" for both values, you should
  *  do a deep comparison. But you have to take one silly exception into account: by a historical accident,
@@ -399,4 +401,107 @@
 
     return a === b;
   }
+}());
+
+/**
+ *  Eloquent Javascript Exercises, Chapter 5 - Mother-child age difference
+ *
+ *  Using the example data set from this chapter, compute the average age difference between mothers
+ *  and children (the age of the mother when the child is born). You can use the average function defined
+ *  earlier in this chapter.
+ *
+ *  Note that not all the mothers mentioned in the data are themselves present in the array. The byName
+ *  object, which makes it easy to find a person’s object from their name, might be useful here.
+ */
+(function(){
+  const ancestry = [{"name":"Carolus Haverbeke","sex":"m","born":1832,"died":1905,"father":"Carel Haverbeke",
+  "mother":"Maria van Brussel"},{"name":"Emma de Milliano","sex":"f","born":1876,"died":1956,
+  "father":"Petrus de Milliano","mother":"Sophia van Damme"},{"name":"Maria de Rycke","sex":"f",
+  "born":1683,"died":1724,"father":"Frederik de Rycke","mother":"Laurentia van Vlaenderen"},
+  {"name":"Jan van Brussel","sex":"m","born":1714,"died":1748,"father":"Jacobus van Brussel",
+  "mother":"Joanna van Rooten"},{"name":"Philibert Haverbeke","sex":"m","born":1907,"died":1997,
+  "father":"Emile Haverbeke","mother":"Emma de Milliano"},{"name":"Jan Frans van Brussel","sex":"m",
+  "born":1761,"died":1833,"father":"Jacobus Bernardus van Brussel","mother":null},
+  {"name":"Pauwels van Haverbeke","sex":"m","born":1535,"died":1582,"father":"N. van Haverbeke",
+  "mother":null},{"name":"Clara Aernoudts","sex":"f","born":1918,"died":2012,"father":"Henry Aernoudts",
+  "mother":"Sidonie Coene"},{"name":"Emile Haverbeke","sex":"m","born":1877,"died":1968,
+  "father":"Carolus Haverbeke","mother":"Maria Sturm"},{"name":"Lieven de Causmaecker","sex":"m",
+  "born":1696,"died":1724,"father":"Carel de Causmaecker","mother":"Joanna Claes"},
+  {"name":"Pieter Haverbeke","sex":"m","born":1602,"died":1642,"father":"Lieven van Haverbeke",
+  "mother":null},{"name":"Livina Haverbeke","sex":"f","born":1692,"died":1743,"father":"Daniel Haverbeke",
+  "mother":"Joanna de Pape"},{"name":"Pieter Bernard Haverbeke","sex":"m","born":1695,"died":1762,
+  "father":"Willem Haverbeke","mother":"Petronella Wauters"},{"name":"Lieven van Haverbeke","sex":"m",
+  "born":1570,"died":1636,"father":"Pauwels van Haverbeke","mother":"Lievijne Jans"},
+  {"name":"Joanna de Causmaecker","sex":"f","born":1762,"died":1807,"father":"Bernardus de Causmaecker",
+  "mother":null},{"name":"Willem Haverbeke","sex":"m","born":1668,"died":1731,"father":"Lieven Haverbeke",
+  "mother":"Elisabeth Hercke"},{"name":"Pieter Antone Haverbeke","sex":"m","born":1753,"died":1798,
+  "father":"Jan Francies Haverbeke","mother":"Petronella de Decker"},{"name":"Maria van Brussel","sex":"f",
+  "born":1801,"died":1834,"father":"Jan Frans van Brussel","mother":"Joanna de Causmaecker"},
+  {"name":"Angela Haverbeke","sex":"f","born":1728,"died":1734,"father":"Pieter Bernard Haverbeke",
+  "mother":"Livina de Vrieze"},{"name":"Elisabeth Haverbeke","sex":"f","born":1711,"died":1754,
+  "father":"Jan Haverbeke","mother":"Maria de Rycke"},{"name":"Lievijne Jans","sex":"f","born":1542,
+  "died":1582,"father":null,"mother":null},{"name":"Bernardus de Causmaecker","sex":"m","born":1721,
+  "died":1789,"father":"Lieven de Causmaecker","mother":"Livina Haverbeke"},{"name":"Jacoba Lammens",
+  "sex":"f","born":1699,"died":1740,"father":"Lieven Lammens","mother":"Livina de Vrieze"},
+  {"name":"Pieter de Decker","sex":"m","born":1705,"died":1780,"father":"Joos de Decker",
+  "mother":"Petronella van de Steene"},{"name":"Joanna de Pape","sex":"f","born":1654,"died":1723,
+  "father":"Vincent de Pape","mother":"Petronella Wauters"},{"name":"Daniel Haverbeke","sex":"m",
+  "born":1652,"died":1723,"father":"Lieven Haverbeke","mother":"Elisabeth Hercke"},
+  {"name":"Lieven Haverbeke","sex":"m","born":1631,"died":1676,"father":"Pieter Haverbeke",
+  "mother":"Anna van Hecke"},{"name":"Martina de Pape","sex":"f","born":1666,"died":1727,
+  "father":"Vincent de Pape","mother":"Petronella Wauters"},{"name":"Jan Francies Haverbeke","sex":"m",
+  "born":1725,"died":1779,"father":"Pieter Bernard Haverbeke","mother":"Livina de Vrieze"},
+  {"name":"Maria Haverbeke","sex":"m","born":1905,"died":1997,"father":"Emile Haverbeke",
+  "mother":"Emma de Milliano"},{"name":"Petronella de Decker","sex":"f","born":1731,"died":1781,
+  "father":"Pieter de Decker","mother":"Livina Haverbeke"},{"name":"Livina Sierens","sex":"f","born":1761,
+  "died":1826,"father":"Jan Sierens","mother":"Maria van Waes"},{"name":"Laurentia Haverbeke","sex":"f",
+  "born":1710,"died":1786,"father":"Jan Haverbeke","mother":"Maria de Rycke"},{"name":"Carel Haverbeke",
+  "sex":"m","born":1796,"died":1837,"father":"Pieter Antone Haverbeke","mother":"Livina Sierens"},
+  {"name":"Elisabeth Hercke","sex":"f","born":1632,"died":1674,"father":"Willem Hercke",
+  "mother":"Margriet de Brabander"},{"name":"Jan Haverbeke","sex":"m","born":1671,"died":1731,
+  "father":"Lieven Haverbeke","mother":"Elisabeth Hercke"},{"name":"Anna van Hecke","sex":"f","born":1607,
+  "died":1670,"father":"Paschasius van Hecke","mother":"Martijntken Beelaert"},{"name":"Maria Sturm",
+  "sex":"f","born":1835,"died":1917,"father":"Charles Sturm","mother":"Seraphina Spelier"},
+  {"name":"Jacobus Bernardus van Brussel","sex":"m","born":1736,"died":1809,"father":"Jan van Brussel",
+  "mother":"Elisabeth Haverbeke"}];
+
+  /**
+   *  Get average value of a set of numbers.
+   * 
+   *  @param {Number[]} array - Input array.
+   *
+   *  @returns {Number} - Average value.
+   */
+  const average = array => array.reduce( (a, b) => a + b ) / array.length;
+  
+  // Create an object with person mapped by name.
+  let byName = {};
+  ancestry.forEach( person => byName[person.name] = person );
+  
+  // NOTE: Auxiliary functions created because this is the focus of the chapter
+
+  /**
+   *  Checks if given person has a valid mother. 
+   *
+   *  @param {*} person - Input person.
+   *
+   *  @returns {Boolean} - Validity of mother.
+   */
+  const hasValidMother = person => typeof byName[person.mother] != 'undefined';
+
+  /**
+   *  Calculate age diference between given person and his mother.
+   *
+   *  @param {*} person - Input person.
+   *
+   *  @returns {Number} - Age diference.
+   */
+  const motherChildDiference = person => person.born - byName[person.mother].born;
+
+  // Calculate average motherChildDiference in ancestry data set.
+  console.log(
+    average(
+      ancestry.filter( hasValidMother ).map( motherChildDiference )
+    )
+  );
 }());
