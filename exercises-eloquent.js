@@ -109,8 +109,8 @@
   /**
    *  Count occurrencies of given char in a string.
    *
-   *  @param {String} str   - 'Haystack' string.
-   *  @param {String} char  - Char to be count.
+   *  @param {String} str  - 'Haystack' string.
+   *  @param {String} char - Char to be count.
    *
    *  @returns {Number} - Occurrencies of `char`.
    */
@@ -131,8 +131,8 @@
   /**
    *  Count occurrencies of given char in a string, recursively.
    *
-   *  @param {String} str   - 'Haystack' string.
-   *  @param {String} char  - Char to be count.
+   *  @param {String} str  - 'Haystack' string.
+   *  @param {String} char - Char to be count.
    *
    *  @returns {Number} - Occurrencies of `char`.
    */
@@ -145,8 +145,8 @@
   /**
    *  Encapsulates and correctly initiates the recursive, no-substring, function.
    *
-   *  @param {String} str   - 'Haystack' string.
-   *  @param {String} char  - Char to be count.
+   *  @param {String} str  - 'Haystack' string.
+   *  @param {String} char - Char to be count.
    *
    *  @returns {Number} - Occurrencies of `char`.
    */
@@ -192,11 +192,11 @@
 (function() {
 
   /**
-   *  Create an array with numbers of given range.
+   *  Create an array with numbers within given range.
    *
    *  @param {Number} start       - Start of range.
    *  @param {Number} end         - End of range.
-   *  @param {Number} [step = 1]  - Step of increment.
+   *  @param {Number} [step = 1]  - Increment step.
    *
    *  @returns {Number[]} - Filled array.
    */
@@ -215,9 +215,9 @@
   /**
    *  Sum numbers of given array.
    *
-   *  @param {Number[]} numberArr - Array of numbers to be sum.
+   *  @param {Number[]} numberArr - Input array.
    *
-   *  @returns {Number} - Sum of numbers.
+   *  @returns {Number} - Result.
    */
   const sum = numberArr => numberArr.reduce( (a, b) => a + b );
 }());
@@ -261,8 +261,8 @@
    */
   const reverseArrayInPlace = arr => {
     let aux,
-        endIndex  = arr.length - 1,
-        midIndex  = Math.floor( endIndex / 2 );
+        endIndex = arr.length - 1,
+        midIndex = Math.floor( endIndex / 2 );
 
     for (let i = 0; i < midIndex; i++ ) {
       aux = arr[i];
@@ -474,34 +474,16 @@
    */
   const average = array => array.reduce( (a, b) => a + b ) / array.length;
   
-  // Create an object with person mapped by name.
+  // Create an object with people mapped by name.
   let byName = {};
   ancestry.forEach( person => byName[person.name] = person );
   
-  // NOTE: Auxiliary functions created because this is the focus of the chapter
-
-  /**
-   *  Checks if given person has a valid mother. 
-   *
-   *  @param {*} person - Input person.
-   *
-   *  @returns {Boolean} - Validity of mother.
-   */
+  // NOTE: Auxiliary self-explanatory functions created because they are the focus of this chapter.
   const hasValidMother = person => typeof byName[person.mother] != 'undefined';
-
-  /**
-   *  Calculate age diference between given person and his mother.
-   *
-   *  @param {*} person - Input person.
-   *
-   *  @returns {Number} - Age diference.
-   */
   const motherChildDiference = person => person.born - byName[person.mother].born;
 
   // Calculate average motherChildDiference in ancestry data set.
   console.log(
-    average(
-      ancestry.filter( hasValidMother ).map( motherChildDiference )
-    )
+    average( ancestry.filter( hasValidMother ).map( motherChildDiference ) )
   );
 }());
