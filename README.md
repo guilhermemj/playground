@@ -6,7 +6,7 @@ Feel free to explore my projects and anything else you find here. Enjoy the ride
 
 # Dev Playground v1.0
 
-Well, everything must start from somewhere ¯\_(ツ)_/¯
+Well, everything must start from somewhere ¯\\_(ツ)_/¯
 
 Let's define some kind of rules:
 
