@@ -476,13 +476,14 @@
    */
   const average = array => array.reduce( (a, b) => a + b ) / array.length;
   
-  // Create an object with people mapped by name.
-  let byName = {};
-  ancestry.forEach( person => byName[person.name] = person );
+  // ~Create an object with people mapped by name.~
+  // Create a Map<name, person> from ancestry
+  let byName = new Map();
+  ancestry.forEach( person => byName.set(person.name, person) );
   
   // NOTE: Auxiliary self-explanatory functions created because they are the focus of this chapter.
-  const hasValidMother = person => typeof byName[person.mother] != 'undefined';
-  const motherChildDiference = person => person.born - byName[person.mother].born;
+  const hasValidMother = person => typeof byName.get(person.mother) != 'undefined';
+  const motherChildDiference = person => person.born - byName.get(person.mother).born;
 
   // Calculate average motherChildDiference in ancestry data set.
   console.log(
@@ -573,18 +574,18 @@
    *  @param {Object[]} array  - Input array.
    *  @param {Function} method - Grouping method.
    *
-   *  @returns {Object} - Mapped object.
+   *  @returns {Map<String, Object>} - Group Map.
    */
   const groupBy = (array, method) => {
-    let groupMap = {};
+    let groupMap = new Map();
 
     array.forEach(item => {
-      let key = method(item);
+      let key = method(item).toString();
 
-      if (!groupMap[key]) groupMap[key] = [];
+      if ( !groupMap.has(key) ) groupMap.set(key, []);
 
-      groupMap[key].push(item);
-    });    
+      groupMap.get(key).push(item);
+    });
 
     return groupMap;
   };
@@ -596,7 +597,9 @@
   // Create an object with people grouped by century.
   let ancestryByCentury = groupBy(ancestry, getCentury);
 
-  const getAverageAgeByCentury = century => average( ancestryByCentury[century].map(getAge) );
+  const getAverageAgeByCentury = century => average(
+    Array.from( ancestryByCentury.get( century.toString() ) ).map(getAge)
+  );
   
   for (let i = 16; i <= 21; i++) {
     console.log( i + ': ' + getAverageAgeByCentury(i) );
