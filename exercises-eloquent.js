@@ -361,6 +361,7 @@
   };
 }());
 
+
 /**
  *  Eloquent Javascript Exercises, Chapter 4 - Deep comparison
  *
@@ -402,6 +403,7 @@
     return a === b;
   }
 }());
+
 
 /**
  *  Eloquent Javascript Exercises, Chapter 5 - Mother-child age difference
@@ -490,6 +492,7 @@
     average( ancestry.filter( hasValidMother ).map( motherChildDiference ) )
   );
 }());
+
 
 /**
  *  Eloquent Javascript Exercises, Chapter 5 - Historical life expectancy
@@ -607,6 +610,7 @@
   
 }());
 
+
 /**
  *  Eloquent Javascript Exercises, Chapter 5 - Every and then some
  *
@@ -657,6 +661,7 @@
     return false;
   };
 }());
+
 
 /**
  *  Eloquent Javascript Exercises, Chapter 6 - A vector type
@@ -714,4 +719,349 @@
       return new VectorES6( this.x - vector.x, this.y - vector.y );
     }
   }
+}());
+
+
+// ============================================================
+//  Eloquent Javascript, Chapter 7 - Project: Electronic Life
+//
+//  http://eloquentjavascript.net/07_elife.html
+// ============================================================
+
+(function() {
+  
+  class Vector {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    plus(other) {
+      return new Vector(this.x + other.x, this.y + other.y);
+    }
+  }
+
+  const DIRECTIONS = new Map([
+    ["n",  new Vector( 0, -1)],
+    ["ne", new Vector( 1, -1)],
+    ["e",  new Vector( 1,  0)],
+    ["se", new Vector( 1,  1)],
+    ["s",  new Vector( 0,  1)],
+    ["sw", new Vector(-1,  1)],
+    ["w",  new Vector(-1,  0)],
+    ["nw", new Vector(-1, -1)]
+  ]);
+
+  const DIRECTION_NAMES = "n ne e se s sw w nw".split(" ");
+
+  const randomElement = arr => arr[ Math.floor(Math.random() * arr.length) ];
+  
+  const elementFromChar = (legend, ch) => {
+    if (ch === ' ') return null;
+
+    let element = new legend[ch]();
+
+    element.originChar = ch;
+
+    return element;
+  };
+  
+  const charFromElement = element => element == null ? ' ' : element.originChar;
+
+  class Grid {
+    constructor(width, height) {
+      this.space = new Array(width * height);
+      this.width = width;
+      this.height = height;
+    }
+
+    isInside(vector) {
+      return vector.x >= 0 && vector.x < this.width &&
+             vector.y >= 0 && vector.y < this.height;
+    }
+
+    get(vector) {
+      return this.space[vector.x + this.width * vector.y];
+    }
+
+    set(vector, value) {
+      this.space[vector.x + this.width * vector.y] = value;
+    }
+
+    forEach(f, context) {
+      for (let y = 0; y < this.height; y++) {
+        for (let x = 0; x < this.width; x++) {
+          let vector = new Vector(x, y);
+          let value = this.get(vector);
+
+          if (value !== null) f.call(context, value, vector);
+        }
+      }
+    }
+  }
+
+  class View {
+    constructor(world, vector) {
+      this.world = world;
+      this.vector = vector;
+    }
+
+    look(dir) {
+      let target = this.vector.plus( DIRECTIONS.get(dir) );
+      
+      return this.world.grid.isInside(target) ?
+        charFromElement( this.world.grid.get(target) ) :
+        '#'
+    }
+
+    findAll(ch) {
+      let found = [];
+
+      Array.from( DIRECTIONS.keys() ).forEach(dir => {
+        if (this.look(dir) == ch) found.push(dir);
+      });
+
+      return found;
+    }
+
+    find(ch) {
+      let found = this.findAll(ch);
+
+      return found.length ?
+        randomElement(found) :
+        null;
+    }
+  }
+
+
+  //  First World Implementation
+  // -----------------------------
+
+  class World {
+    constructor(map, legend) {
+      this.grid = new Grid( map[0].length, map.length );
+      this.legend = legend;
+
+      map.forEach((line, y) => {
+        for (let x = 0; x < line.length; x++) {
+          this.grid.set(
+            new Vector(x, y),
+            elementFromChar( legend, line[x] )
+          );
+        }
+      });
+    }
+
+    toString() {
+      let output = '';
+
+      for (let y = 0; y < this.grid.height; y++) {
+        for (let x = 0; x < this.grid.width; x++) {
+          output += charFromElement( this.grid.get(new Vector(x, y)) );
+        }
+
+        output += '\n';
+      }
+
+      return output;
+    }
+
+    checkDestination(action, vector) {
+      if ( DIRECTIONS.has( action.direction ) ) {
+        let dest = vector.plus( DIRECTIONS.get(action.direction) );
+
+        if (this.grid.isInside(dest)) return dest;
+      }
+    }
+
+    letAct(critter, vector) {
+      let action = critter.act(new View(this, vector));
+
+      if (action && action.type == "move") {
+        let dest = this.checkDestination(action, vector);
+
+        if (dest && this.grid.get(dest) == null) {
+          this.grid.set(vector, null);
+          this.grid.set(dest, critter);
+        }
+      }
+    }
+
+    turn() {
+      let acted = [];
+
+      this.grid.forEach((critter, vector) => {
+        if (critter.act && acted.indexOf(critter) == -1) {
+          acted.push(critter);
+          this.letAct(critter, vector);
+        }
+      });
+    }
+  }
+
+  class BouncingCritter {
+    constructor() {
+      this.direction = randomElement(DIRECTION_NAMES);
+    }
+
+    act(view) {
+      if (view.look(this.direction) != " ")
+        this.direction = view.find(" ") || "s";
+      return {type: "move", direction: this.direction};
+    }
+  }
+  
+  const dirPlus = (dir, n) => {
+    return DIRECTION_NAMES[ (DIRECTION_NAMES.indexOf(dir) + n + 8) % 8];
+  };
+
+  class WallFollower {
+    constructor() {
+      this.dir = "s";
+    }
+
+    act(view) {
+      let start = this.dir;
+
+      if (view.look( dirPlus(this.dir, -3) ) != " ") {
+        start = this.dir = dirPlus(this.dir, -2);
+      }
+
+      while (view.look(this.dir) != " ") {
+        this.dir = dirPlus(this.dir, 1);
+
+        if (this.dir == start) break;
+      }
+
+      return { type: "move", direction: this.dir };
+    }
+  }
+  
+  class Wall { }
+  
+
+  //  Second World Implementation
+  // ------------------------------
+  
+  const ACTION_TYPES = new Map([
+    [
+      'grow', critter => {
+        critter.energy += 0.5;
+        return true;
+      }
+    ],
+
+    [
+      'move', (critter, vector, action) => {
+        let dest = this.checkDestination(action, vector);
+
+        if (
+          dest == null ||
+          critter.energy <= 1 ||
+          this.grid.get(dest) != null
+
+        ) return false;
+
+        critter.energy -= 1;
+        this.grid.set(vector, null);
+        this.grid.set(dest, critter);
+
+        return true;
+      }
+    ],
+
+    [
+      'eat', (critter, vector, action) => {
+        let dest = this.checkDestination(action, vector);
+        let atDest = dest != null && this.grid.get(dest);
+    
+        if (!atDest || atDest.energy == null) return false;
+    
+        critter.energy += atDest.energy;
+        this.grid.set(dest, null);
+        
+        return true;
+      }
+    ],
+    
+    [
+      'reproduce', (critter, vector, action) => {
+        let baby = elementFromChar(this.legend, critter.originChar);
+        let dest = this.checkDestination(action, vector);
+    
+        if (
+          dest == null ||
+          critter.energy <= 2 * baby.energy ||
+          this.grid.get(dest) != null
+        ) return false;
+    
+        critter.energy -= 2 * baby.energy;
+        this.grid.set(dest, baby);
+        return true;
+      }
+    ],
+  ]);
+
+  class LifelikeWorld extends World {
+    letAct(critter, vector) {
+      let action = critter.act(new View(this, vector));
+
+      let handled = action &&
+        ACTION_TYPES.has(action.type) &&
+        ACTION_TYPES.get(action.type).call(this, critter, vector, action);
+
+      if (!handled) {
+        critter.energy -= 0.2;
+
+        if (critter.energy <= 0) this.grid.set(vector, null);
+      }
+    }
+  }
+
+  class Plant {
+    constructor() {
+      this.energy = 3 + Math.random() * 4;
+    }
+
+    act(view) {
+      if (this.energy > 15) {
+        let space = view.find(" ");
+
+        if (space) return {
+          type: "reproduce",
+          direction: space
+        };
+      }
+
+      if (this.energy < 20) return { type: "grow" };
+    }
+  }
+
+  class PlantEater {
+    constructor() {
+      this.energy = 20;
+    }
+
+    act(view) {
+      let space = view.find(" ");
+
+      if (this.energy > 60 && space) return {
+        type: "reproduce",
+        direction: space
+      };
+
+      let plant = view.find("*");
+
+      if (plant) return {
+        type: "eat",
+        direction: plant
+      };
+
+      if (space) return {
+        type: "move",
+        direction: space
+      };
+    }
+  }
+
 }());
