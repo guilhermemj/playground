@@ -683,7 +683,7 @@
 //
 //  http://eloquentjavascript.net/07_elife.html
 // ============================================================
-// (function() {
+(function() {
   
     class Vector {
         constructor(x, y) {
@@ -902,14 +902,14 @@
 
     const ACTION_TYPES = new Map([
         [
-            'grow', critter => {
+            'grow', function action_grow(critter) {
                 critter.energy += 0.5;
                 return true;
             }
         ],
 
         [
-            'move', (critter, vector, action) => {
+            'move', function action_move(critter, vector, action) {
                 let dest = this.checkDestination(action, vector);
 
                 if (
@@ -928,7 +928,7 @@
         ],
 
         [
-            'eat', (critter, vector, action) => {
+            'eat', function action_eat(critter, vector, action) {
                 let dest = this.checkDestination(action, vector);
                 let atDest = dest != null && this.grid.get(dest);
             
@@ -942,7 +942,7 @@
         ],
 
         [
-            'reproduce', (critter, vector, action) => {
+            'reproduce', function action_reproduce(critter, vector, action) {
                 let baby = elementFromChar(this.legend, critter.originChar);
                 let dest = this.checkDestination(action, vector);
             
@@ -1042,11 +1042,12 @@
 
     class SmartPlantEater {
         constructor() {
-            this.energy = 20;
+            this.energy = 30;
 
             this.hunger = 0;
-            this.HUNGER_LIMIT = 5;
+            this.HUNGER_LIMIT = 6;
 
+            this.direction = randomElement(DIRECTION_NAMES);
             this.foodMap = [];
         }
 
@@ -1064,7 +1065,7 @@
             let plant = view.find("*");
 
             if (!!plant) {
-                // Eat when hungry and close to plant
+                // Eat when hungry and close to food
                 if (this.hunger >= this.HUNGER_LIMIT) {
                     this.hunger = 0;
                     this.foodMap = [];
@@ -1075,44 +1076,45 @@
                     };
                 }
 
-                // Memorize path to food and move away if not hungry
-                this.foodMap = [dirPlus(space, 4)];
-
-                return {
-                    type: "move",
-                    direction: space
-                };
-            }
-
-            // Go back to food if starting to feel hungry
-            if (!!this.foodMap.length && this.foodMap.length > this.HUNGER_LIMIT - this.hunger) {
-                let wayBack = view.look( this.foodMap[ this.foodMap.length - 1 ] );
-
-                // Check if path is clear before going back
-                if (wayBack == ' ') {
-                    let dir = this.foodMap.pop();
-
+                if (!!space) {
+                    // Memorize path to food and move away if not hungry
+                    this.direction = space;
+                    this.foodMap = [dirPlus(this.direction, 4)];
+    
                     return {
                         type: "move",
-                        direction: dir
+                        direction: this.direction
                     };
                 }
             }
 
+            // Go back to food if starting to feel hungry
+            if (
+                !!this.foodMap.length &&
+                this.foodMap.length > this.HUNGER_LIMIT - this.hunger &&
+                // Check if path is clear before going back
+                view.look( this.foodMap[ this.foodMap.length - 1 ] ) == ' '
+            ) return {
+                type: "move",
+                direction: this.foodMap.pop()
+            };
+
             // Move freely when not hungry
             if (!!space) {
-
+                if (view.look(this.direction) != " ") {
+                    this.direction = space;
+                }
+    
                 // But memorizing the way if plant location is known
                 if (!!this.foodMap.length) {
-                    this.foodMap.push( dirPlus(space, 4) );
+                    this.foodMap.push( dirPlus(this.direction, 4) );
                 }
-
-                // TODO: Improve logic of finding food. (A very unlucky critter would starve to death)
+    
                 return {
                     type: "move",
-                    direction: space
+                    direction: this.direction
                 };
             }
         }
     }
-// }());
+}());
