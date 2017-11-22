@@ -683,7 +683,7 @@
 //
 //  http://eloquentjavascript.net/07_elife.html
 // ============================================================
-(function() {
+// (function() {
   
     class Vector {
         constructor(x, y) {
@@ -707,7 +707,12 @@
         ["nw", new Vector(-1, -1)]
     ]);
 
+	// `Array.from( DIRECTIONS.keys() )` could have been used, but that provides no
+	// guarantees about the order in which the properties are listed and it will be
+	// important in future functions.
     const DIRECTION_NAMES = "n ne e se s sw w nw".split(" ");
+
+	const dirPlus = (dir, n) =>  DIRECTION_NAMES[ (DIRECTION_NAMES.indexOf(dir) + n + 8) % 8 ];
 
     const randomElement = arr => arr[ Math.floor(Math.random() * arr.length) ];
 
@@ -721,7 +726,7 @@
         return element;
     };
 
-    const charFromElement = element => element == null ? ' ' : element.originChar;
+    const charFromElement = element => (element == null ? ' ' : element.originChar);
 
     class Grid {
         constructor(width, height) {
@@ -782,9 +787,7 @@
         find(ch) {
             let found = this.findAll(ch);
 
-            return found.length ?
-                randomElement(found) :
-                null;
+            return found.length ? randomElement(found) : null;
         }
     }
 
@@ -860,15 +863,13 @@
         }
 
         act(view) {
-            if (view.look(this.direction) != " ")
-                this.direction = view.find(" ") || "s";
-            return {type: "move", direction: this.direction};
+            if (view.look(this.direction) != " ") {
+				this.direction = view.find(" ") || "s";
+			}
+			
+            return { type: "move", direction: this.direction };
         }
     }
-
-    const dirPlus = (dir, n) => {
-        return DIRECTION_NAMES[ (DIRECTION_NAMES.indexOf(dir) + n + 8) % 8 ];
-    };
 
     class WallFollower {
         constructor() {
@@ -876,12 +877,13 @@
         }
 
         act(view) {
-            let start = this.dir;
-
+            
             if (view.look( dirPlus(this.dir, -3) ) != " ") {
-                start = this.dir = dirPlus(this.dir, -2);
+                this.dir = dirPlus(this.dir, -2);
             }
-
+            
+            let start = this.dir;
+            
             while (view.look(this.dir) != " ") {
                 this.dir = dirPlus(this.dir, 1);
 
@@ -1017,6 +1019,100 @@
                 direction: space
             };
         }
-    }
+	}
 
-}());
+
+    // ============================================================================================
+    //  Eloquent Javascript Exercises - Artificial stupidity
+	//
+	//  Having the inhabitants of our world go extinct after a few minutes is kind of depressing.
+    //  To deal with this, we could try to create a smarter plant eater.
+    //
+    //  There are several obvious problems with our herbivores. First, they are terribly greedy,
+    //  stuffing themselves with every plant they see until they have wiped out the local plant
+    //  life. Second, their randomized movement (recall that the `view.find` method returns a
+    //  random direction when multiple directions match) causes them to stumble around
+    //  ineffectively and starve if there don’t happen to be any plants nearby. And finally,
+    //  they breed very fast, which makes the cycles between abundance and famine quite intense.
+    //
+    //  Write a new critter type that tries to address one or more of these points and substitute
+    //  it for the old `PlantEater` type in the valley world. See how it fares. Tweak it some
+    //  more if necessary.
+    // ============================================================================================
+
+    class SmartPlantEater {
+        constructor() {
+            this.energy = 20;
+
+            this.hunger = 0;
+            this.HUNGER_LIMIT = 5;
+
+            this.foodMap = [];
+        }
+
+        act(view) {
+            this.hunger++;
+
+            let space = view.find(" ");
+
+            // Reproduce when enough energy and space
+            if (this.energy > 120 && !!space) return {
+                type: "reproduce",
+                direction: space
+            };
+
+            let plant = view.find("*");
+
+            if (!!plant) {
+                // Eat when hungry and close to plant
+                if (this.hunger >= this.HUNGER_LIMIT) {
+                    this.hunger = 0;
+                    this.foodMap = [];
+
+                    return {
+                        type: "eat",
+                        direction: plant
+                    };
+                }
+
+                // Memorize path to food and move away if not hungry
+                this.foodMap = [dirPlus(space, 4)];
+
+                return {
+                    type: "move",
+                    direction: space
+                };
+            }
+
+            // Go back to food if starting to feel hungry
+            if (!!this.foodMap.length && this.foodMap.length > this.HUNGER_LIMIT - this.hunger) {
+                let wayBack = view.look( this.foodMap[ this.foodMap.length - 1 ] );
+
+                // Check if path is clear before going back
+                if (wayBack == ' ') {
+                    let dir = this.foodMap.pop();
+
+                    return {
+                        type: "move",
+                        direction: dir
+                    };
+                }
+            }
+
+            // Move freely when not hungry
+            if (!!space) {
+
+                // But memorizing the way if plant location is known
+                if (!!this.foodMap.length) {
+                    this.foodMap.push( dirPlus(space, 4) );
+                }
+
+                // TODO: Improve logic of finding food. (A very unlucky critter would starve to death)
+                return {
+                    type: "move",
+                    direction: space
+                };
+            }
+        }
+    }
+// }());
