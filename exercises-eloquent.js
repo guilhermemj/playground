@@ -824,9 +824,9 @@
             return output;
         }
 
-        checkDestination(action, vector) {
-            if ( DIRECTIONS.has( action.direction ) ) {
-                let dest = vector.plus( DIRECTIONS.get(action.direction) );
+        checkDestination({direction}, vector) {
+            if ( DIRECTIONS.has( direction ) ) {
+                let dest = vector.plus( DIRECTIONS.get(direction) );
 
                 if (this.grid.isInside(dest)) return dest;
             }
@@ -957,6 +957,33 @@
                 return true;
             }
         ],
+
+        [
+            'slash', function action_slash(critter, vector, action) {
+
+                let destinations = [
+                    this.checkDestination({ direction: dirPlus(action.direction, -1) }, vector),
+                    this.checkDestination({ direction: action.direction }, vector),
+                    this.checkDestination({ direction: dirPlus(action.direction, 1) }, vector),
+                ];
+
+                let success = 0;
+
+                destinations.forEach(dest => {
+
+                    let atDest = dest != null && this.grid.get(dest);
+                    
+                    if (!atDest || atDest instanceof Wall) return false;
+    
+                    this.grid.set(dest, null);
+                    critter.energy -= .75;
+                    
+                    success++;
+                });
+                
+                return !!success;
+            }
+        ],
     ]);
 
     class LifelikeWorld extends World {
@@ -1045,7 +1072,7 @@
             this.energy = 30;
 
             this.hunger = 0;
-            this.HUNGER_LIMIT = 6;
+            this.HUNGER_LIMIT = 5;
 
             this.direction = randomElement(DIRECTION_NAMES);
             this.foodMap = [];
@@ -1066,7 +1093,7 @@
 
             if (!!plant) {
                 // Eat when hungry and close to food
-                if (this.hunger >= this.HUNGER_LIMIT) {
+                if (this.hunger >= this.HUNGER_LIMIT || this.energy <= 10) {
                     this.hunger = 0;
                     this.foodMap = [];
 
@@ -1117,4 +1144,69 @@
             }
         }
     }
+
+
+    // ============================================================================================
+    //  Eloquent Javascript Exercises - Predators
+    //
+    //  Any serious ecosystem has a food chain longer than a single link. Write another critter
+    //  that survives by eating the herbivore critter. You’ll notice that stability is even harder
+    //  to achieve now that there are cycles at multiple levels. Try to find a strategy to make
+    //  the ecosystem run smoothly for at least a little while.
+    //
+    //  One thing that will help is to make the world bigger. This way, local population booms or
+    //  busts are less likely to wipe out a species entirely, and there is space for the relatively
+    //  large prey population needed to sustain a small predator population.
+    // ============================================================================================
+
+    class Tiger {
+        constructor() {
+            this.energy = 200;
+            this.direction = randomElement(DIRECTION_NAMES);
+        }
+
+        act(view) {
+            let space = view.find(" ");
+            
+            // Reproduce when enough energy and space
+            if (this.energy > 400 && !!space) return {
+                type: "reproduce",
+                direction: space
+            };
+
+            let prey = view.findAll('O');
+
+            if (!!prey.length) {
+
+                // Eat prey after finding the horde (or something like it)
+                if (prey.length > 1 || this.energy < 30) return {
+                    type: "eat",
+                    direction: randomElement(prey)
+                }
+                
+                // Follow prey to the horde
+                this.direction = prey[0];
+            }
+
+            // Change directions if obstructed
+            if (" O".indexOf( view.look(this.direction) ) == -1 && !!space) {
+                this.direction = space;
+            }
+
+            // Tigers hate plants
+            let plants = view.findAll('*');
+
+            if (plants.length > 2) return {
+                type: "slash",
+                direction: randomElement(plants)
+            }
+            
+            // Move when you don't know what to do
+            return {
+                type: "move",
+                direction: this.direction
+            };
+        }
+    }
+    
 }());
