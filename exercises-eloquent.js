@@ -1208,5 +1208,171 @@
             };
         }
     }
+
+    /*
+    let animations = [
+        {
+            world: new LifelikeWorld(
+                [
+                    "############################",
+                    "#####                 ######",
+                    "##   ***                **##",
+                    "#   *##**         **  O  *##",
+                    "#    ***     O    ##**    *#",
+                    "#       O         ##***    #",
+                    "#                 ##**     #",
+                    "#   O       #*             #",
+                    "#*          #**       O    #",
+                    "#***        ##**    O    **#",
+                    "##****     ###***       *###",
+                    "############################"
+                ],
+                {
+                    "#": Wall,
+                    "O": SmartPlantEater,
+                    "*": Plant
+                }
+            ),
+            elemNode: document.getElementById('logger')
+        },
+
+        {
+            world: new LifelikeWorld(
+                [
+                    "####################################################",
+                    "#                 ####         ****              ###",
+                    "#   *  @  ##                 ########       OO    ##",
+                    "#   *    ##        O O                 ****       *#",
+                    "#       ##*                        ##########     *#",
+                    "#      ##***  *         ****                     **#",
+                    "#*O**  #  *  ***      #########                  **#",
+                    "#* **  #      *              *#   *              **#",
+                    "#     ##              #   O   #  ***          ######",
+                    "#*            @       #       #   *        O  #    #",
+                    "#*                    #  ######                 ** #",
+                    "###          ****          ***                  ** #",
+                    "#       O                        @         O       #",
+                    "#   *     ##  ##  ##  ##               ###      *  #",
+                    "#   **         #              *       #####  O     #",
+                    "##  **  O   O  #  #    ***  ***        ###      ** #",
+                    "###               #   *****                    ****#",
+                    "####################################################"
+                ],
+                {
+                    "#": Wall,
+                    "@": Tiger,
+                    "O": SmartPlantEater,
+                    "*": Plant
+                }
+            ),
+
+            elemNode: document.getElementById('logger2')
+        }
+    ];
+
+    animations.forEach( ({ world, elemNode }) => {
+        setInterval(function () {
+            world.turn();
+            elemNode.innerHTML = world.toString();
+        }, 125);
+    });
+    */
     
+}());
+
+// ===========================================================
+//  Eloquent Javascript, Chapter 8 - Bugs and Error Handling
+//
+//  http://eloquentjavascript.net/08_error.html
+// ===========================================================
+(function() {
+
+    // ==========================================================================================
+    //  Eloquent Javascript Exercises - Retry
+    //
+    //  Say you have a function primitiveMultiply that, in 50 percent of cases, multiplies two
+    //  numbers, and in the other 50 percent, raises an exception of type
+    //  MultiplicatorUnitFailure. Write a function that wraps this clunky function and just keeps
+    //  trying until a call succeeds, after which it returns the result.
+    //
+    //  Make sure you handle only the exceptions you are trying to handle.
+    // ==========================================================================================
+
+    function MultiplicatorUnitFailure() {}
+    
+    function primitiveMultiply(a, b) {
+        if (Math.random() < 0.5) return a * b;
+
+        throw new MultiplicatorUnitFailure();
+    }
+
+    function reliableMultiply(a, b) {
+        while (true) {
+            try {
+                return primitiveMultiply(a, b);
+            } catch (error) {
+                if ( !(error instanceof MultiplicatorUnitFailure) ) throw error;
+            }
+        }
+    }
+    
+
+    // ==========================================================================================
+    //  Eloquent Javascript Exercises - The locked box
+    //
+    //  Consider the following (rather contrived) object:
+    //
+    //  var box = {
+    //     locked: true,
+    //     unlock: function() { this.locked = false; },
+    //     lock: function() { this.locked = true;  },
+    //     _content: [],
+    //     get content() {
+    //         if (this.locked) throw new Error("Locked!");
+    //         return this._content;
+    //     }
+    //  };
+    //
+    //  It is a box with a lock. Inside is an array, but you can get at it only when the box is
+    //  unlocked. Directly accessing the _content property is not allowed.
+    //
+    //  Write a function called withBoxUnlocked that takes a function value as argument, unlocks
+    //  the box, runs the function, and then ensures that the box is locked again before returning,
+    //  regardless of whether the argument function returned normally or threw an exception.
+    //
+    //  For extra points, make sure that if you call withBoxUnlocked when the box is already
+    //  unlocked, the box stays unlocked.
+    // ============================================================================================
+
+    let box = {
+        isLocked: true,
+        _content: [],
+
+        unlock() {
+            this.isLocked = false;
+        },
+        
+        lock() {
+            this.isLocked = true;
+        },
+
+        get content() {
+            if (this.isLocked) throw new Error("Locked!");
+            return this._content;
+        }
+    };
+
+    const withBoxUnlocked = function withBoxUnlockedDeclaration(body) {
+        let preState = box.isLocked;
+
+        if (preState) box.unlock();
+
+        try {
+            body();
+        } catch (error) {
+            throw error;
+        } finally {
+            if (preState) box.lock();
+        }
+    }
 }());
