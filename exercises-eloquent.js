@@ -5,42 +5,42 @@
 //  http://eloquentjavascript.net/02_program_structure.html
 // ==========================================================
 (function() {
-    'use strict';
+	'use strict';
 
-    // ================================================================================
-    //  Eloquent Javascript Exercises - Chess Board Generator
-    //
-    //  Write a program that creates a string that represents an 8×8 grid, using
-    //  newline characters to separate lines. At each position of the grid there is
-    //  either a space or a “#” character. The characters should form a chess board.
-    //
-    //  When you have a program that generates this pattern, define a variable
-    //  size = 8 and change the program so that it works for any size, outputting
-    //  a grid of the given width and height.
-    // ================================================================================
+	// ================================================================================
+	//  Eloquent Javascript Exercises - Chess Board Generator
+	//
+	//  Write a program that creates a string that represents an 8×8 grid, using
+	//  newline characters to separate lines. At each position of the grid there is
+	//  either a space or a “#” character. The characters should form a chess board.
+	//
+	//  When you have a program that generates this pattern, define a variable
+	//  size = 8 and change the program so that it works for any size, outputting
+	//  a grid of the given width and height.
+	// ================================================================================
 
-    /**
-     *  Creates a string that represents a chess board of given width.
-     *
-     *  @param {Number} size - The width of the grid.
-     *
-     *  @returns {String} - String that represents the grid.
-     */
-    function createChessBoard(size) {
-        var str = '';
+	/**
+	 *  Creates a string that represents a chess board of given width.
+	 *
+	 *  @param {Number} size - The width of the grid.
+	 *
+	 *  @returns {String} - String that represents the grid.
+	 */
+	function createChessBoard(size) {
+		var str = '';
 
-        for (var i = 0; i < size; i++) {
-            // Add newlines between rows
-            if (i) str += '\n';
+		for (var i = 0; i < size; i++) {
+			// Add newlines between rows
+			if (i) str += '\n';
 
-            // Generate the pattern
-            for (var j = 0; j < size; j++) {
-                str += (i + j) % 2 ? ' ' : '#';
-            }
-        }
+			// Generate the pattern
+			for (var j = 0; j < size; j++) {
+				str += (i + j) % 2 ? ' ' : '#';
+			}
+		}
 
-        return str;
-    }
+		return str;
+	}
 
 }());
 
@@ -51,133 +51,133 @@
 //  http://eloquentjavascript.net/03_functions.html
 // ==================================================
 (function() {
-    "use strict";
+	"use strict";
 
-    // ================================================================================
-    //  Eloquent Javascript Exercises - Recursive Evenness
-    // 
-    //  We’ve seen that % (the remainder operator) can be used to test whether a
-    //  number is even or odd by using % 2 to check whether it’s divisible by two.
-    //
-    //  Here’s another way to define whether a positive whole number is even or odd:
-    //
-    //    - Zero is even.
-    //    - One is odd.
-    //    - For any other number N, its evenness is the same as N - 2.
-    //
-    //  Define a recursive function isEven corresponding to this description.
-    //  The function should accept a number parameter and return a Boolean.
-    //
-    //  Test it on 50 and 75. See how it behaves on -1. Why? Can you think of a way
-    //  to fix this?
-    // ================================================================================
+	// ================================================================================
+	//  Eloquent Javascript Exercises - Recursive Evenness
+	// 
+	//  We’ve seen that % (the remainder operator) can be used to test whether a
+	//  number is even or odd by using % 2 to check whether it’s divisible by two.
+	//
+	//  Here’s another way to define whether a positive whole number is even or odd:
+	//
+	//	- Zero is even.
+	//	- One is odd.
+	//	- For any other number N, its evenness is the same as N - 2.
+	//
+	//  Define a recursive function isEven corresponding to this description.
+	//  The function should accept a number parameter and return a Boolean.
+	//
+	//  Test it on 50 and 75. See how it behaves on -1. Why? Can you think of a way
+	//  to fix this?
+	// ================================================================================
 
-    /**
-     *  Check if a number is even recursively.
-     *
-     *  @param {Number} number - Number to be check.
-     *
-     *  @returns {Boolean} - Evenness of number.
-     */
-    function isEven(number) {
-        if (number == 0) return true;
-        if (number == 1) return false;
+	/**
+	 *  Check if a number is even recursively.
+	 *
+	 *  @param {Number} number - Number to be check.
+	 *
+	 *  @returns {Boolean} - Evenness of number.
+	 */
+	function isEven(number) {
+		if (number == 0) return true;
+		if (number == 1) return false;
 
-        return isEven( number + (number > 1 ? -2 : 2) );
-    }
-    
-    // ==========================================================================================
-    //  Eloquent Javascript Exercises - Bean Counting
-    //
-    //  You can get the Nth character, or letter, from a string by writing "string".charAt(N),
-    //  similar to how you get its length with "s".length. The returned value will be a string
-    //  containing only one character (for example, "b"). The first character has position
-    //  zero, which causes the last one to be found at position string.length - 1. In other words,
-    //  a two-character string has length 2, and its characters have positions 0 and 1.
-    //
-    //  Write a function countBs that takes a string as its only argument and returns a number
-    //  that indicates how many uppercase “B” characters are in the string.
-    //
-    //  Next, write a function called countChar that behaves like countBs, except it takes a
-    //  second argument that indicates the character that is to be counted (rather than counting
-    //  only uppercase “B” characters). Rewrite countBs to make use of this new function.
-    // ==========================================================================================
+		return isEven( number + (number > 1 ? -2 : 2) );
+	}
+	
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - Bean Counting
+	//
+	//  You can get the Nth character, or letter, from a string by writing "string".charAt(N),
+	//  similar to how you get its length with "s".length. The returned value will be a string
+	//  containing only one character (for example, "b"). The first character has position
+	//  zero, which causes the last one to be found at position string.length - 1. In other words,
+	//  a two-character string has length 2, and its characters have positions 0 and 1.
+	//
+	//  Write a function countBs that takes a string as its only argument and returns a number
+	//  that indicates how many uppercase “B” characters are in the string.
+	//
+	//  Next, write a function called countChar that behaves like countBs, except it takes a
+	//  second argument that indicates the character that is to be counted (rather than counting
+	//  only uppercase “B” characters). Rewrite countBs to make use of this new function.
+	// ==========================================================================================
 
-    /**
-     *  Count occurrencies of char 'B' in a string.
-     *
-     *  @param {String} str - 'Haystack' string.
-     *
-     *  @returns {Number} - Occurrencies of 'B'.
-     */
-    function countBs(str) {
-        return countChar(str, 'B');
-    }
+	/**
+	 *  Count occurrencies of char 'B' in a string.
+	 *
+	 *  @param {String} str - 'Haystack' string.
+	 *
+	 *  @returns {Number} - Occurrencies of 'B'.
+	 */
+	function countBs(str) {
+		return countChar(str, 'B');
+	}
 
-    /**
-     *  Count occurrencies of given char in a string.
-     *
-     *  @param {String} str  - 'Haystack' string.
-     *  @param {String} char - Char to be count.
-     *
-     *  @returns {Number} - Occurrencies of `char`.
-     */
-    function countChar(str, char) {
-        var ret = 0;
+	/**
+	 *  Count occurrencies of given char in a string.
+	 *
+	 *  @param {String} str  - 'Haystack' string.
+	 *  @param {String} char - Char to be count.
+	 *
+	 *  @returns {Number} - Occurrencies of `char`.
+	 */
+	function countChar(str, char) {
+		var ret = 0;
 
-        for (var i = 0, l = str.length; i < l; i++) {
-            if (str.charAt(i) == char) ret++;
-        }
+		for (var i = 0, l = str.length; i < l; i++) {
+			if (str.charAt(i) == char) ret++;
+		}
 
-        return ret;
-    }
+		return ret;
+	}
 
 
-    //  Recursive Approach
-    // ======================
+	//  Recursive Approach
+	// ======================
 
-    /**
-     *  Count occurrencies of given char in a string, recursively.
-     *
-     *  @param {String} str  - 'Haystack' string.
-     *  @param {String} char - Char to be count.
-     *
-     *  @returns {Number} - Occurrencies of `char`.
-     */
-    function countCharRecursively(str, char) {
-        if (!str.length) return 0;
-        
-        return (str.charAt(i) == char ? 1 : 0) + countCharRecursively(str.substring(1), char);
-    }
+	/**
+	 *  Count occurrencies of given char in a string, recursively.
+	 *
+	 *  @param {String} str  - 'Haystack' string.
+	 *  @param {String} char - Char to be count.
+	 *
+	 *  @returns {Number} - Occurrencies of `char`.
+	 */
+	function countCharRecursively(str, char) {
+		if (!str.length) return 0;
+		
+		return (str.charAt(i) == char ? 1 : 0) + countCharRecursively(str.substring(1), char);
+	}
   
-    /**
-     *  Encapsulates and correctly initiates the recursive, no-substring, function.
-     *
-     *  @param {String} str  - 'Haystack' string.
-     *  @param {String} char - Char to be count.
-     *
-     *  @returns {Number} - Occurrencies of `char`.
-     */
-    function countCharNoSubstring(str, char) {
-        return trueCountCharNoSubstring(str, char, str.length - 1);
-    }
+	/**
+	 *  Encapsulates and correctly initiates the recursive, no-substring, function.
+	 *
+	 *  @param {String} str  - 'Haystack' string.
+	 *  @param {String} char - Char to be count.
+	 *
+	 *  @returns {Number} - Occurrencies of `char`.
+	 */
+	function countCharNoSubstring(str, char) {
+		return trueCountCharNoSubstring(str, char, str.length - 1);
+	}
   
-    /**
-     *  Count occurrencies of given char in a string, recursively, without using `substring`.
-     *
-     *  @param {String} str   - 'Haystack' string.
-     *  @param {String} char  - Char to be count.
-     *  @param {Number} i     - Index of current char.
-     *
-     *  @returns {Number} - Occurrencies of `char`.
-     *
-     *  @private
-     */
-    function trueCountCharNoSubstring(str, char, i) {
-        if (i < 0) return 0;
+	/**
+	 *  Count occurrencies of given char in a string, recursively, without using `substring`.
+	 *
+	 *  @param {String} str  - 'Haystack' string.
+	 *  @param {String} char - Char to be count.
+	 *  @param {Number} i    - Index of current char.
+	 *
+	 *  @returns {Number} - Occurrencies of `char`.
+	 *
+	 *  @private
+	 */
+	function trueCountCharNoSubstring(str, char, i) {
+		if (i < 0) return 0;
 
-        return (str.charAt(i) == char ? 1 : 0) + trueCountCharNoSubstring(str, char, i - 1);
-    }
+		return (str.charAt(i) == char ? 1 : 0) + trueCountCharNoSubstring(str, char, i - 1);
+	}
 
 }());
 
@@ -189,82 +189,82 @@
 // =======================================================================
 (function() {
 
-    // ==========================================================================================
-    //  Eloquent Javascript Exercises - The sum of a range
-    //
-    //  Write a range function that takes two arguments, start and end, and returns an array
-    //  containing all the numbers from start up to (and including) end.
-    //
-    //  Next, write a sum function that takes an array of numbers and returns the sum of these
-    //  numbers. Run the previous program and see whether it does indeed return 55.
-    //
-    //  As a bonus assignment, modify your range function to take an optional third argument
-    //  that indicates the “step” value used to build up the array. If no step is given, the
-    //  array elements go up by increments of one, corresponding to the old behavior. The
-    //  function call range(1, 10, 2) should return [1, 3, 5, 7, 9]. Make sure it also works
-    //  with negative step values so that range(5, 2, -1) produces [5, 4, 3, 2].
-    // ==========================================================================================
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - The sum of a range
+	//
+	//  Write a range function that takes two arguments, start and end, and returns an array
+	//  containing all the numbers from start up to (and including) end.
+	//
+	//  Next, write a sum function that takes an array of numbers and returns the sum of these
+	//  numbers. Run the previous program and see whether it does indeed return 55.
+	//
+	//  As a bonus assignment, modify your range function to take an optional third argument
+	//  that indicates the “step” value used to build up the array. If no step is given, the
+	//  array elements go up by increments of one, corresponding to the old behavior. The
+	//  function call range(1, 10, 2) should return [1, 3, 5, 7, 9]. Make sure it also works
+	//  with negative step values so that range(5, 2, -1) produces [5, 4, 3, 2].
+	// ==========================================================================================
 
-    /**
-     *  Create an array with numbers within given range.
-     *
-     *  @param {Number} start       - Start of range.
-     *  @param {Number} end         - End of range.
-     *  @param {Number} [step = 1]  - Increment step.
-     *
-     *  @returns {Number[]} - Filled array.
-     */
-    const range = (start, end, step) => {
-        let arr = [];
+	/**
+	 *  Create an array with numbers within given range.
+	 *
+	 *  @param {Number} start      - Start of range.
+	 *  @param {Number} end        - End of range.
+	 *  @param {Number} [step = 1] - Increment step.
+	 *
+	 *  @returns {Number[]} - Filled array.
+	 */
+	const range = (start, end, step) => {
+		let arr = [];
 
-        if (start > end) {
-            for (let i = start; i >= end; i += (step || -1)) arr.push(i);
-        } else {
-            for (let i = start; i <= end; i += (step || 1)) arr.push(i);
-        }
+		if (start > end) {
+			for (let i = start; i >= end; i += (step || -1)) arr.push(i);
+		} else {
+			for (let i = start; i <= end; i += (step || 1)) arr.push(i);
+		}
 
-        return arr;
-    };
+		return arr;
+	};
 
-    /**
-     *  Sum numbers of given array.
-     *
-     *  @param {Number[]} numberArr - Input array.
-     *
-     *  @returns {Number} - Result.
-     */
-    const sum = numberArr => numberArr.reduce( (a, b) => a + b );
+	/**
+	 *  Sum numbers of given array.
+	 *
+	 *  @param {Number[]} numberArr - Input array.
+	 *
+	 *  @returns {Number} - Result.
+	 */
+	const sum = numberArr => numberArr.reduce( (a, b) => a + b );
 
 
-    // ============================================================================================
-    //  Eloquent Javascript Exercises - Reversing an array
-    //
-    //  Arrays have a method reverse, which changes the array by inverting the order in which
-    //  its elements appear. For this exercise, write two functions, reverseArray and
-    //  reverseArrayInPlace. The first, reverseArray, takes an array as argument and produces
-    //  a new array that has the same elements in the inverse order. The second,
-    //  reverseArrayInPlace, does what the reverse method does: it modifies the array given as
-    //  argument in order to reverse its elements. Neither may use the standard reverse method.
-    //
-    //  Thinking back to the notes about side effects and pure functions in the previous chapter,
-    //  which variant do you expect to be useful in more situations? Which one is more efficient?
-    // ============================================================================================
+	// ============================================================================================
+	//  Eloquent Javascript Exercises - Reversing an array
+	//
+	//  Arrays have a method reverse, which changes the array by inverting the order in which
+	//  its elements appear. For this exercise, write two functions, reverseArray and
+	//  reverseArrayInPlace. The first, reverseArray, takes an array as argument and produces
+	//  a new array that has the same elements in the inverse order. The second,
+	//  reverseArrayInPlace, does what the reverse method does: it modifies the array given as
+	//  argument in order to reverse its elements. Neither may use the standard reverse method.
+	//
+	//  Thinking back to the notes about side effects and pure functions in the previous chapter,
+	//  which variant do you expect to be useful in more situations? Which one is more efficient?
+	// ============================================================================================
 
-    /**
-     *  Returns a new array reversed from input.
-     *
-     *  @param {*[]} arr - Input array.
-     *
-     *  @returns {*[]} - New reversed array.
-     */
-    const reverseArray = arr => {
-        let revArr = [];
+	/**
+	 *  Returns a new array reversed from input.
+	 *
+	 *  @param {*[]} arr - Input array.
+	 *
+	 *  @returns {*[]} - New reversed array.
+	 */
+	const reverseArray = arr => {
+		let revArr = [];
 
-        for (let i = arr.length - 1; i >= 0; i--) {
-            revArr.push(arr[i]);
-        }
-        
-        return revArr;
+		for (let i = arr.length - 1; i >= 0; i--) {
+			revArr.push(arr[i]);
+		}
+		
+		return revArr;
 	};
 	
 	/**
@@ -495,7 +495,6 @@
 	 */
 	const average = array => (array.reduce( (a, b) => a + b ) / array.length);
 
-	// ~Create an object with people mapped by name.~
 	// Create a Map<name, person> from ancestry
 	let byName = new Map();
 	ancestry.forEach( person => byName.set(person.name, person) );
@@ -597,7 +596,7 @@
 	 *  Test whether at least one element in the array passes the test implemented by the provided
 	 *  function.
 	 *
-	 *  @param {*[]} 	  arr - Input array.
+	 *  @param {*[]}      arr - Input array.
 	 *  @param {Function} fn  - Function to test for each element.
 	 *
 	 *  @returns {Boolean} - `true` if the callback function returns a truthy value for any array
@@ -607,7 +606,7 @@
 		for (let i = 0; i < arr.length; i++) {
 			if (fn( arr[i] )) return true;
 		}
-	
+
 		return false;
 	};
 }());
@@ -640,11 +639,11 @@
 	};
 
 	Vector.prototype = {
-		
+
 		get length() {
 			return Math.sqrt( Math.pow(this.x, 2) + Math.pow(this.y, 2) );
 		},
-		
+
 		plus: function(vector) {
 			return new Vector( this.x + vector.x, this.y + vector.y );
 		},
@@ -684,601 +683,602 @@
 //  http://eloquentjavascript.net/07_elife.html
 // ============================================================
 (function() {
-  
-    class Vector {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-        }
 
-        plus(other) {
-            return new Vector(this.x + other.x, this.y + other.y);
-        }
-    }
+	class Vector {
+		constructor(x, y) {
+			this.x = x;
+			this.y = y;
+		}
 
-    const DIRECTIONS = new Map([
-        ["n",  new Vector( 0, -1)],
-        ["ne", new Vector( 1, -1)],
-        ["e",  new Vector( 1,  0)],
-        ["se", new Vector( 1,  1)],
-        ["s",  new Vector( 0,  1)],
-        ["sw", new Vector(-1,  1)],
-        ["w",  new Vector(-1,  0)],
-        ["nw", new Vector(-1, -1)]
-    ]);
+		plus(other) {
+			return new Vector(this.x + other.x, this.y + other.y);
+		}
+	}
+
+	const DIRECTIONS = new Map([
+		["n",  new Vector( 0, -1)],
+		["ne", new Vector( 1, -1)],
+		["e",  new Vector( 1,  0)],
+		["se", new Vector( 1,  1)],
+		["s",  new Vector( 0,  1)],
+		["sw", new Vector(-1,  1)],
+		["w",  new Vector(-1,  0)],
+		["nw", new Vector(-1, -1)]
+	]);
 
 	// `Array.from( DIRECTIONS.keys() )` could have been used, but that provides no
 	// guarantees about the order in which the properties are listed and it will be
 	// important in future functions.
-    const DIRECTION_NAMES = "n ne e se s sw w nw".split(" ");
+	const DIRECTION_NAMES = "n ne e se s sw w nw".split(" ");
 
 	const dirPlus = (dir, n) =>  DIRECTION_NAMES[ (DIRECTION_NAMES.indexOf(dir) + n + 8) % 8 ];
 
-    const randomElement = arr => arr[ Math.floor(Math.random() * arr.length) ];
+	const randomElement = arr => arr[ Math.floor(Math.random() * arr.length) ];
 
-    const elementFromChar = (legend, ch) => {
-        if (ch === ' ') return null;
+	const elementFromChar = (legend, ch) => {
+		if (ch === ' ') return null;
 
-        let element = new legend[ch]();
+		let element = new legend[ch]();
 
-        element.originChar = ch;
+		element.originChar = ch;
 
-        return element;
-    };
+		return element;
+	};
 
-    const charFromElement = element => (element == null ? ' ' : element.originChar);
+	const charFromElement = element => (element == null ? ' ' : element.originChar);
 
-    class Grid {
-        constructor(width, height) {
-            this.space = new Array(width * height);
-            this.width = width;
-            this.height = height;
-        }
+	class Grid {
+		constructor(width, height) {
+			this.space = new Array(width * height);
+			this.width = width;
+			this.height = height;
+		}
 
-        isInside(vector) {
-            return  vector.x >= 0 && vector.x < this.width &&
-                    vector.y >= 0 && vector.y < this.height;
-        }
+		isInside(vector) {
+			return  vector.x >= 0 && vector.x < this.width &&
+					vector.y >= 0 && vector.y < this.height;
+		}
 
-        get(vector) {
-            return this.space[ vector.x + this.width * vector.y ];
-        }
+		get(vector) {
+			return this.space[ vector.x + this.width * vector.y ];
+		}
 
-        set(vector, value) {
-            this.space[ vector.x + this.width * vector.y ] = value;
-        }
+		set(vector, value) {
+			this.space[ vector.x + this.width * vector.y ] = value;
+		}
 
-        forEach(f, context) {
-            for (let y = 0; y < this.height; y++) {
-                for (let x = 0; x < this.width; x++) {
-                    let vector = new Vector(x, y);
-                    let value = this.get(vector);
+		forEach(f, context) {
+			for (let y = 0; y < this.height; y++) {
+				for (let x = 0; x < this.width; x++) {
+					let vector = new Vector(x, y);
+					let value = this.get(vector);
 
-                    if (value !== null) f.call(context, value, vector);
-                }
-            }
-        }
-    }
-
-    class View {
-        constructor(world, vector) {
-            this.world = world;
-            this.vector = vector;
-        }
-
-        look(dir) {
-            let target = this.vector.plus( DIRECTIONS.get(dir) );
-            
-            return this.world.grid.isInside(target) ?
-                charFromElement( this.world.grid.get(target) ) :
-                '#'
-        }
-
-        findAll(ch) {
-            let found = [];
-
-            Array.from( DIRECTIONS.keys() ).forEach(dir => {
-                if (this.look(dir) == ch) found.push(dir);
-            });
-
-            return found;
-        }
-
-        find(ch) {
-            let found = this.findAll(ch);
-
-            return found.length ? randomElement(found) : null;
-        }
-    }
-
-
-    //  First World Implementation
-    // -----------------------------
-
-    class World {
-        constructor(map, legend) {
-            this.grid = new Grid( map[0].length, map.length );
-            this.legend = legend;
-
-            map.forEach((line, y) => {
-                for (let x = 0; x < line.length; x++) {
-                    this.grid.set(
-                        new Vector(x, y),
-                        elementFromChar( legend, line[x] )
-                    );
-                }
-            });
-        }
-
-        toString() {
-            let output = '';
-
-            for (let y = 0; y < this.grid.height; y++) {
-                for (let x = 0; x < this.grid.width; x++) {
-                    output += charFromElement( this.grid.get(new Vector(x, y)) );
-                }
-
-                output += '\n';
-            }
-
-            return output;
-        }
-
-        checkDestination({direction}, vector) {
-            if ( DIRECTIONS.has( direction ) ) {
-                let dest = vector.plus( DIRECTIONS.get(direction) );
-
-                if (this.grid.isInside(dest)) return dest;
-            }
-        }
-
-        letAct(critter, vector) {
-            let action = critter.act(new View(this, vector));
-
-            if (action && action.type == "move") {
-                let dest = this.checkDestination(action, vector);
-
-                if (dest && this.grid.get(dest) == null) {
-                    this.grid.set(vector, null);
-                    this.grid.set(dest, critter);
-                }
-            }
-        }
-
-        turn() {
-            let acted = [];
-
-            this.grid.forEach((critter, vector) => {
-                if (critter.act && acted.indexOf(critter) == -1) {
-                    acted.push(critter);
-                    this.letAct(critter, vector);
-                }
-            });
-        }
-    }
-
-    class BouncingCritter {
-        constructor() {
-            this.direction = randomElement(DIRECTION_NAMES);
-        }
-
-        act(view) {
-            if (view.look(this.direction) != " ") {
-				this.direction = view.find(" ") || "s";
+					if (value !== null) f.call(context, value, vector);
+				}
 			}
+		}
+	}
+
+	class View {
+		constructor(world, vector) {
+			this.world = world;
+			this.vector = vector;
+		}
+
+		look(dir) {
+			let target = this.vector.plus( DIRECTIONS.get(dir) );
 			
-            return { type: "move", direction: this.direction };
-        }
-    }
+			return this.world.grid.isInside(target) ?
+				charFromElement( this.world.grid.get(target) ) :
+				'#'
+		}
 
-    class WallFollower {
-        constructor() {
-            this.dir = "s";
-        }
+		findAll(ch) {
+			let found = [];
 
-        act(view) {
-            
-            if (view.look( dirPlus(this.dir, -3) ) != " ") {
-                this.dir = dirPlus(this.dir, -2);
-            }
-            
-            let start = this.dir;
-            
-            while (view.look(this.dir) != " ") {
-                this.dir = dirPlus(this.dir, 1);
+			Array.from( DIRECTIONS.keys() ).forEach(dir => {
+				if (this.look(dir) == ch) found.push(dir);
+			});
 
-                if (this.dir == start) break;
-            }
+			return found;
+		}
 
-            return { type: "move", direction: this.dir };
-        }
-    }
+		find(ch) {
+			let found = this.findAll(ch);
 
-    class Wall { }
-
-
-    //  Second World Implementation
-    // ------------------------------
-
-    const ACTION_TYPES = new Map([
-        [
-            'grow', function action_grow(critter) {
-                critter.energy += 0.5;
-                return true;
-            }
-        ],
-
-        [
-            'move', function action_move(critter, vector, action) {
-                let dest = this.checkDestination(action, vector);
-
-                if (
-                    dest == null ||
-                    critter.energy <= 1 ||
-                    this.grid.get(dest) != null
-
-                ) return false;
-
-                critter.energy -= 1;
-                this.grid.set(vector, null);
-                this.grid.set(dest, critter);
-
-                return true;
-            }
-        ],
-
-        [
-            'eat', function action_eat(critter, vector, action) {
-                let dest = this.checkDestination(action, vector);
-                let atDest = dest != null && this.grid.get(dest);
-            
-                if (!atDest || atDest.energy == null) return false;
-            
-                critter.energy += atDest.energy;
-                this.grid.set(dest, null);
-                
-                return true;
-            }
-        ],
-
-        [
-            'reproduce', function action_reproduce(critter, vector, action) {
-                let baby = elementFromChar(this.legend, critter.originChar);
-                let dest = this.checkDestination(action, vector);
-            
-                if (
-                    dest == null ||
-                    critter.energy <= 2 * baby.energy ||
-                    this.grid.get(dest) != null
-                ) return false;
-            
-                critter.energy -= 2 * baby.energy;
-                this.grid.set(dest, baby);
-                return true;
-            }
-        ],
-
-        [
-            'slash', function action_slash(critter, vector, action) {
-
-                let destinations = [
-                    this.checkDestination({ direction: dirPlus(action.direction, -1) }, vector),
-                    this.checkDestination({ direction: action.direction }, vector),
-                    this.checkDestination({ direction: dirPlus(action.direction, 1) }, vector),
-                ];
-
-                let success = 0;
-
-                destinations.forEach(dest => {
-
-                    let atDest = dest != null && this.grid.get(dest);
-                    
-                    if (!atDest || atDest instanceof Wall) return false;
-    
-                    this.grid.set(dest, null);
-                    critter.energy -= .75;
-                    
-                    success++;
-                });
-                
-                return !!success;
-            }
-        ],
-    ]);
-
-    class LifelikeWorld extends World {
-        letAct(critter, vector) {
-            let action = critter.act(new View(this, vector));
-
-            let handled = action &&
-                ACTION_TYPES.has(action.type) &&
-                ACTION_TYPES.get(action.type).call(this, critter, vector, action);
-
-            if (!handled) {
-                critter.energy -= 0.2;
-
-                if (critter.energy <= 0) this.grid.set(vector, null);
-            }
-        }
-    }
-
-    class Plant {
-        constructor() {
-            this.energy = 3 + Math.random() * 4;
-        }
-
-        act(view) {
-            if (this.energy > 15) {
-                let space = view.find(" ");
-
-                if (space) return {
-                    type: "reproduce",
-                    direction: space
-                };
-            }
-
-            if (this.energy < 20) return { type: "grow" };
-        }
-    }
-
-    class PlantEater {
-        constructor() {
-            this.energy = 20;
-        }
-
-        act(view) {
-            let space = view.find(" ");
-
-            if (this.energy > 60 && space) return {
-                type: "reproduce",
-                direction: space
-            };
-
-            let plant = view.find("*");
-
-            if (plant) return {
-                type: "eat",
-                direction: plant
-            };
-
-            if (space) return {
-                type: "move",
-                direction: space
-            };
-        }
+			return found.length ? randomElement(found) : null;
+		}
 	}
 
 
-    // ============================================================================================
-    //  Eloquent Javascript Exercises - Artificial stupidity
+	//  First World Implementation
+	// -----------------------------
+
+	class World {
+		constructor(map, legend) {
+			this.grid = new Grid( map[0].length, map.length );
+			this.legend = legend;
+
+			map.forEach((line, y) => {
+				for (let x = 0; x < line.length; x++) {
+					this.grid.set(
+						new Vector(x, y),
+						elementFromChar( legend, line[x] )
+					);
+				}
+			});
+		}
+
+		toString() {
+			let output = '';
+
+			for (let y = 0; y < this.grid.height; y++) {
+				for (let x = 0; x < this.grid.width; x++) {
+					output += charFromElement( this.grid.get(new Vector(x, y)) );
+				}
+
+				output += '\n';
+			}
+
+			return output;
+		}
+
+		checkDestination({direction}, vector) {
+			if ( DIRECTIONS.has( direction ) ) {
+				let dest = vector.plus( DIRECTIONS.get(direction) );
+
+				if (this.grid.isInside(dest)) return dest;
+			}
+		}
+
+		letAct(critter, vector) {
+			let action = critter.act(new View(this, vector));
+
+			if (action && action.type == "move") {
+				let dest = this.checkDestination(action, vector);
+
+				if (dest && this.grid.get(dest) == null) {
+					this.grid.set(vector, null);
+					this.grid.set(dest, critter);
+				}
+			}
+		}
+
+		turn() {
+			let acted = [];
+
+			this.grid.forEach((critter, vector) => {
+				if (critter.act && acted.indexOf(critter) == -1) {
+					acted.push(critter);
+					this.letAct(critter, vector);
+				}
+			});
+		}
+	}
+
+	class BouncingCritter {
+		constructor() {
+			this.direction = randomElement(DIRECTION_NAMES);
+		}
+
+		act(view) {
+			if (view.look(this.direction) != " ") {
+				this.direction = view.find(" ") || "s";
+			}
+			
+			return { type: "move", direction: this.direction };
+		}
+	}
+
+	class WallFollower {
+		constructor() {
+			this.dir = "s";
+		}
+
+		act(view) {
+			
+			if (view.look( dirPlus(this.dir, -3) ) != " ") {
+				this.dir = dirPlus(this.dir, -2);
+			}
+			
+			let start = this.dir;
+			
+			while (view.look(this.dir) != " ") {
+				this.dir = dirPlus(this.dir, 1);
+
+				if (this.dir == start) break;
+			}
+
+			return { type: "move", direction: this.dir };
+		}
+	}
+
+	class Wall { }
+
+
+	//  Second World Implementation
+	// ------------------------------
+
+	const ACTION_TYPES = new Map([
+		[
+			'grow', function action_grow(critter) {
+				critter.energy += 0.5;
+				return true;
+			}
+		],
+
+		[
+			'move', function action_move(critter, vector, action) {
+				let dest = this.checkDestination(action, vector);
+
+				if (
+					dest == null ||
+					critter.energy <= 1 ||
+					this.grid.get(dest) != null
+
+				) return false;
+
+				critter.energy -= 1;
+				this.grid.set(vector, null);
+				this.grid.set(dest, critter);
+
+				return true;
+			}
+		],
+
+		[
+			'eat', function action_eat(critter, vector, action) {
+				let dest = this.checkDestination(action, vector);
+				let atDest = dest != null && this.grid.get(dest);
+
+				if (!atDest || atDest.energy == null) return false;
+
+				critter.energy += atDest.energy;
+				this.grid.set(dest, null);
+
+				return true;
+			}
+		],
+
+		[
+			'reproduce', function action_reproduce(critter, vector, action) {
+				let baby = elementFromChar(this.legend, critter.originChar);
+				let dest = this.checkDestination(action, vector);
+
+				if (
+					dest == null ||
+					critter.energy <= 2 * baby.energy ||
+					this.grid.get(dest) != null
+				) return false;
+
+				critter.energy -= 2 * baby.energy;
+				this.grid.set(dest, baby);
+				return true;
+			}
+		],
+
+		[
+			'slash', function action_slash(critter, vector, action) {
+
+				let destinations = [
+					this.checkDestination({ direction: dirPlus(action.direction, -1) }, vector),
+					this.checkDestination({ direction: action.direction }, vector),
+					this.checkDestination({ direction: dirPlus(action.direction, 1) }, vector),
+				];
+
+				let success = 0;
+
+				destinations.forEach(dest => {
+
+					let atDest = dest != null && this.grid.get(dest);
+
+					if (!atDest || atDest instanceof Wall) return false;
+
+					this.grid.set(dest, null);
+					critter.energy -= .75;
+
+					success++;
+				});
+
+				return !!success;
+			}
+		],
+	]);
+
+	class LifelikeWorld extends World {
+		letAct(critter, vector) {
+			let action = critter.act(new View(this, vector));
+
+			let handled = action &&
+				ACTION_TYPES.has(action.type) &&
+				ACTION_TYPES.get(action.type).call(this, critter, vector, action);
+
+			if (!handled) {
+				critter.energy -= 0.2;
+
+				if (critter.energy <= 0) this.grid.set(vector, null);
+			}
+		}
+	}
+
+	class Plant {
+		constructor() {
+			this.energy = 3 + Math.random() * 4;
+		}
+
+		act(view) {
+			if (this.energy > 15) {
+				let space = view.find(" ");
+
+				if (space) return {
+					type: "reproduce",
+					direction: space
+				};
+			}
+
+			if (this.energy < 20) return { type: "grow" };
+		}
+	}
+
+	class PlantEater {
+		constructor() {
+			this.energy = 20;
+		}
+
+		act(view) {
+			let space = view.find(" ");
+
+			if (this.energy > 60 && space) return {
+				type: "reproduce",
+				direction: space
+			};
+
+			let plant = view.find("*");
+
+			if (plant) return {
+				type: "eat",
+				direction: plant
+			};
+
+			if (space) return {
+				type: "move",
+				direction: space
+			};
+		}
+	}
+
+
+	// ============================================================================================
+	//  Eloquent Javascript Exercises - Artificial stupidity
 	//
 	//  Having the inhabitants of our world go extinct after a few minutes is kind of depressing.
-    //  To deal with this, we could try to create a smarter plant eater.
-    //
-    //  There are several obvious problems with our herbivores. First, they are terribly greedy,
-    //  stuffing themselves with every plant they see until they have wiped out the local plant
-    //  life. Second, their randomized movement (recall that the `view.find` method returns a
-    //  random direction when multiple directions match) causes them to stumble around
-    //  ineffectively and starve if there don’t happen to be any plants nearby. And finally,
-    //  they breed very fast, which makes the cycles between abundance and famine quite intense.
-    //
-    //  Write a new critter type that tries to address one or more of these points and substitute
-    //  it for the old `PlantEater` type in the valley world. See how it fares. Tweak it some
-    //  more if necessary.
-    // ============================================================================================
+	//  To deal with this, we could try to create a smarter plant eater.
+	//
+	//  There are several obvious problems with our herbivores. First, they are terribly greedy,
+	//  stuffing themselves with every plant they see until they have wiped out the local plant
+	//  life. Second, their randomized movement (recall that the `view.find` method returns a
+	//  random direction when multiple directions match) causes them to stumble around
+	//  ineffectively and starve if there don’t happen to be any plants nearby. And finally,
+	//  they breed very fast, which makes the cycles between abundance and famine quite intense.
+	//
+	//  Write a new critter type that tries to address one or more of these points and substitute
+	//  it for the old `PlantEater` type in the valley world. See how it fares. Tweak it some
+	//  more if necessary.
+	// ============================================================================================
 
-    class SmartPlantEater {
-        constructor() {
-            this.energy = 30;
+	class SmartPlantEater {
+		constructor() {
+			this.energy = 30;
 
-            this.hunger = 0;
-            this.HUNGER_LIMIT = 5;
+			this.hunger = 0;
+			this.HUNGER_LIMIT = 5;
 
-            this.direction = randomElement(DIRECTION_NAMES);
-            this.foodMap = [];
-        }
+			this.direction = randomElement(DIRECTION_NAMES);
+			this.foodMap = [];
+		}
 
-        act(view) {
-            this.hunger++;
+		act(view) {
+			this.hunger++;
 
-            let space = view.find(" ");
+			let space = view.find(" ");
 
-            // Reproduce when enough energy and space
-            if (this.energy > 120 && !!space) return {
-                type: "reproduce",
-                direction: space
-            };
+			// Reproduce when enough energy and space
+			if (this.energy > 120 && !!space) return {
+				type: "reproduce",
+				direction: space
+			};
 
-            let plant = view.find("*");
+			let plant = view.find("*");
 
-            if (!!plant) {
-                // Eat when hungry and close to food
-                if (this.hunger >= this.HUNGER_LIMIT || this.energy <= 10) {
-                    this.hunger = 0;
-                    this.foodMap = [];
+			if (!!plant) {
+				// Eat when hungry and close to food
+				if (this.hunger >= this.HUNGER_LIMIT || this.energy <= 10) {
+					this.hunger = 0;
+					this.foodMap = [];
 
-                    return {
-                        type: "eat",
-                        direction: plant
-                    };
-                }
+					return {
+						type: "eat",
+						direction: plant
+					};
+				}
 
-                if (!!space) {
-                    // Memorize path to food and move away if not hungry
-                    this.direction = space;
-                    this.foodMap = [dirPlus(this.direction, 4)];
-    
-                    return {
-                        type: "move",
-                        direction: this.direction
-                    };
-                }
-            }
+				if (!!space) {
+					// Memorize path to food and move away if not hungry
+					this.direction = space;
+					this.foodMap = [dirPlus(this.direction, 4)];
 
-            // Go back to food if starting to feel hungry
-            if (
-                !!this.foodMap.length &&
-                this.foodMap.length > this.HUNGER_LIMIT - this.hunger &&
-                // Check if path is clear before going back
-                view.look( this.foodMap[ this.foodMap.length - 1 ] ) == ' '
-            ) return {
-                type: "move",
-                direction: this.foodMap.pop()
-            };
+					return {
+						type: "move",
+						direction: this.direction
+					};
+				}
+			}
 
-            // Move freely when not hungry
-            if (!!space) {
-                if (view.look(this.direction) != " ") {
-                    this.direction = space;
-                }
-    
-                // But memorizing the way if plant location is known
-                if (!!this.foodMap.length) {
-                    this.foodMap.push( dirPlus(this.direction, 4) );
-                }
-    
-                return {
-                    type: "move",
-                    direction: this.direction
-                };
-            }
-        }
-    }
+			// Go back to food if starting to feel hungry
+			if (
+				!!this.foodMap.length &&
+				this.foodMap.length > this.HUNGER_LIMIT - this.hunger &&
+				// Check if path is clear before going back
+				view.look( this.foodMap[ this.foodMap.length - 1 ] ) == ' '
+			) return {
+				type: "move",
+				direction: this.foodMap.pop()
+			};
+
+			// Move freely when not hungry
+			if (!!space) {
+				if (view.look(this.direction) != " ") {
+					this.direction = space;
+				}
+	
+				// But memorizing the way if plant location is known
+				if (!!this.foodMap.length) {
+					this.foodMap.push( dirPlus(this.direction, 4) );
+				}
+	
+				return {
+					type: "move",
+					direction: this.direction
+				};
+			}
+		}
+	}
 
 
-    // ============================================================================================
-    //  Eloquent Javascript Exercises - Predators
-    //
-    //  Any serious ecosystem has a food chain longer than a single link. Write another critter
-    //  that survives by eating the herbivore critter. You’ll notice that stability is even harder
-    //  to achieve now that there are cycles at multiple levels. Try to find a strategy to make
-    //  the ecosystem run smoothly for at least a little while.
-    //
-    //  One thing that will help is to make the world bigger. This way, local population booms or
-    //  busts are less likely to wipe out a species entirely, and there is space for the relatively
-    //  large prey population needed to sustain a small predator population.
-    // ============================================================================================
+	// ============================================================================================
+	//  Eloquent Javascript Exercises - Predators
+	//
+	//  Any serious ecosystem has a food chain longer than a single link. Write another critter
+	//  that survives by eating the herbivore critter. You’ll notice that stability is even harder
+	//  to achieve now that there are cycles at multiple levels. Try to find a strategy to make
+	//  the ecosystem run smoothly for at least a little while.
+	//
+	//  One thing that will help is to make the world bigger. This way, local population booms or
+	//  busts are less likely to wipe out a species entirely, and there is space for the relatively
+	//  large prey population needed to sustain a small predator population.
+	// ============================================================================================
 
-    class Tiger {
-        constructor() {
-            this.energy = 200;
-            this.direction = randomElement(DIRECTION_NAMES);
-        }
+	class Tiger {
+		constructor() {
+			this.energy = 200;
+			this.direction = randomElement(DIRECTION_NAMES);
+		}
 
-        act(view) {
-            let space = view.find(" ");
-            
-            // Reproduce when enough energy and space
-            if (this.energy > 400 && !!space) return {
-                type: "reproduce",
-                direction: space
-            };
+		act(view) {
+			let space = view.find(" ");
+			
+			// Reproduce when enough energy and space
+			if (this.energy > 400 && !!space) return {
+				type: "reproduce",
+				direction: space
+			};
 
-            let prey = view.findAll('O');
+			let prey = view.findAll('O');
 
-            if (!!prey.length) {
+			if (!!prey.length) {
 
-                // Eat prey after finding the horde (or something like it)
-                if (prey.length > 1 || this.energy < 30) return {
-                    type: "eat",
-                    direction: randomElement(prey)
-                }
-                
-                // Follow prey to the horde
-                this.direction = prey[0];
-            }
+				// Eat prey after finding the horde (or something like it)
+				if (prey.length > 1 || this.energy < 30) return {
+					type: "eat",
+					direction: randomElement(prey)
+				}
 
-            // Change directions if obstructed
-            if (" O".indexOf( view.look(this.direction) ) == -1 && !!space) {
-                this.direction = space;
-            }
+				// Follow prey to the horde
+				this.direction = prey[0];
+			}
 
-            // Tigers hate plants
-            let plants = view.findAll('*');
+			// Change directions if obstructed
+			if (" O".indexOf( view.look(this.direction) ) == -1 && !!space) {
+				this.direction = space;
+			}
 
-            if (plants.length > 2) return {
-                type: "slash",
-                direction: randomElement(plants)
-            }
-            
-            // Move when you don't know what to do
-            return {
-                type: "move",
-                direction: this.direction
-            };
-        }
-    }
+			// Tigers hate plants
+			let plants = view.findAll('*');
 
-    /*
-    let animations = [
-        {
-            world: new LifelikeWorld(
-                [
-                    "############################",
-                    "#####                 ######",
-                    "##   ***                **##",
-                    "#   *##**         **  O  *##",
-                    "#    ***     O    ##**    *#",
-                    "#       O         ##***    #",
-                    "#                 ##**     #",
-                    "#   O       #*             #",
-                    "#*          #**       O    #",
-                    "#***        ##**    O    **#",
-                    "##****     ###***       *###",
-                    "############################"
-                ],
-                {
-                    "#": Wall,
-                    "O": SmartPlantEater,
-                    "*": Plant
-                }
-            ),
-            elemNode: document.getElementById('logger')
-        },
+			if (plants.length > 2) return {
+				type: "slash",
+				direction: randomElement(plants)
+			}
 
-        {
-            world: new LifelikeWorld(
-                [
-                    "####################################################",
-                    "#                 ####         ****              ###",
-                    "#   *  @  ##                 ########       OO    ##",
-                    "#   *    ##        O O                 ****       *#",
-                    "#       ##*                        ##########     *#",
-                    "#      ##***  *         ****                     **#",
-                    "#*O**  #  *  ***      #########                  **#",
-                    "#* **  #      *              *#   *              **#",
-                    "#     ##              #   O   #  ***          ######",
-                    "#*            @       #       #   *        O  #    #",
-                    "#*                    #  ######                 ** #",
-                    "###          ****          ***                  ** #",
-                    "#       O                        @         O       #",
-                    "#   *     ##  ##  ##  ##               ###      *  #",
-                    "#   **         #              *       #####  O     #",
-                    "##  **  O   O  #  #    ***  ***        ###      ** #",
-                    "###               #   *****                    ****#",
-                    "####################################################"
-                ],
-                {
-                    "#": Wall,
-                    "@": Tiger,
-                    "O": SmartPlantEater,
-                    "*": Plant
-                }
-            ),
+			// Move when you don't know what to do
+			return {
+				type: "move",
+				direction: this.direction
+			};
+		}
+	}
 
-            elemNode: document.getElementById('logger2')
-        }
-    ];
+	/*
+	let animations = [
+		{
+			world: new LifelikeWorld(
+				[
+					"############################",
+					"#####                 ######",
+					"##   ***                **##",
+					"#   *##**         **  O  *##",
+					"#    ***     O    ##**    *#",
+					"#       O         ##***    #",
+					"#                 ##**     #",
+					"#   O       #*             #",
+					"#*          #**       O    #",
+					"#***        ##**    O    **#",
+					"##****     ###***       *###",
+					"############################"
+				],
+				{
+					"#": Wall,
+					"O": SmartPlantEater,
+					"*": Plant
+				}
+			),
+			elemNode: document.getElementById('logger')
+		},
 
-    animations.forEach( ({ world, elemNode }) => {
-        setInterval(function () {
-            world.turn();
-            elemNode.innerHTML = world.toString();
-        }, 125);
-    });
-    */
-    
+		{
+			world: new LifelikeWorld(
+				[
+					"####################################################",
+					"#                 ####         ****              ###",
+					"#   *  @  ##                 ########       OO    ##",
+					"#   *    ##        O O                 ****       *#",
+					"#       ##*                        ##########     *#",
+					"#      ##***  *         ****                     **#",
+					"#*O**  #  *  ***      #########                  **#",
+					"#* **  #      *              *#   *              **#",
+					"#     ##              #   O   #  ***          ######",
+					"#*            @       #       #   *        O  #    #",
+					"#*                    #  ######                 ** #",
+					"###          ****          ***                  ** #",
+					"#       O                        @         O       #",
+					"#   *     ##  ##  ##  ##               ###      *  #",
+					"#   **         #              *       #####  O     #",
+					"##  **  O   O  #  #    ***  ***        ###      ** #",
+					"###               #   *****                    ****#",
+					"####################################################"
+				],
+				{
+					"#": Wall,
+					"@": Tiger,
+					"O": SmartPlantEater,
+					"*": Plant
+				}
+			),
+
+			elemNode: document.getElementById('logger2')
+		}
+	];
+
+	animations.forEach( ({ world, elemNode }) => {
+		setInterval(function () {
+			world.turn();
+			elemNode.innerHTML = world.toString();
+		}, 125);
+	});
+	*/
+	
 }());
+
 
 // ===========================================================
 //  Eloquent Javascript, Chapter 8 - Bugs and Error Handling
@@ -1287,92 +1287,213 @@
 // ===========================================================
 (function() {
 
-    // ==========================================================================================
-    //  Eloquent Javascript Exercises - Retry
-    //
-    //  Say you have a function primitiveMultiply that, in 50 percent of cases, multiplies two
-    //  numbers, and in the other 50 percent, raises an exception of type
-    //  MultiplicatorUnitFailure. Write a function that wraps this clunky function and just keeps
-    //  trying until a call succeeds, after which it returns the result.
-    //
-    //  Make sure you handle only the exceptions you are trying to handle.
-    // ==========================================================================================
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - Retry
+	//
+	//  Say you have a function primitiveMultiply that, in 50 percent of cases, multiplies two
+	//  numbers, and in the other 50 percent, raises an exception of type
+	//  MultiplicatorUnitFailure. Write a function that wraps this clunky function and just keeps
+	//  trying until a call succeeds, after which it returns the result.
+	//
+	//  Make sure you handle only the exceptions you are trying to handle.
+	// ==========================================================================================
 
-    function MultiplicatorUnitFailure() {}
-    
-    function primitiveMultiply(a, b) {
-        if (Math.random() < 0.5) return a * b;
+	function MultiplicatorUnitFailure() {}
+	
+	function primitiveMultiply(a, b) {
+		if (Math.random() < 0.5) return a * b;
 
-        throw new MultiplicatorUnitFailure();
-    }
+		throw new MultiplicatorUnitFailure();
+	}
 
-    function reliableMultiply(a, b) {
-        while (true) {
-            try {
-                return primitiveMultiply(a, b);
-            } catch (error) {
-                if ( !(error instanceof MultiplicatorUnitFailure) ) throw error;
-            }
-        }
-    }
-    
+	function reliableMultiply(a, b) {
+		while (true) {
+			try {
+				return primitiveMultiply(a, b);
+			} catch (error) {
+				if ( !(error instanceof MultiplicatorUnitFailure) ) throw error;
+			}
+		}
+	}
+	
 
-    // ==========================================================================================
-    //  Eloquent Javascript Exercises - The locked box
-    //
-    //  Consider the following (rather contrived) object:
-    //
-    //  var box = {
-    //     locked: true,
-    //     unlock: function() { this.locked = false; },
-    //     lock: function() { this.locked = true;  },
-    //     _content: [],
-    //     get content() {
-    //         if (this.locked) throw new Error("Locked!");
-    //         return this._content;
-    //     }
-    //  };
-    //
-    //  It is a box with a lock. Inside is an array, but you can get at it only when the box is
-    //  unlocked. Directly accessing the _content property is not allowed.
-    //
-    //  Write a function called withBoxUnlocked that takes a function value as argument, unlocks
-    //  the box, runs the function, and then ensures that the box is locked again before returning,
-    //  regardless of whether the argument function returned normally or threw an exception.
-    //
-    //  For extra points, make sure that if you call withBoxUnlocked when the box is already
-    //  unlocked, the box stays unlocked.
-    // ============================================================================================
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - The locked box
+	//
+	//  Consider the following (rather contrived) object:
+	//
+	//  var box = {
+	//      locked: true,
+	//      unlock: function() { this.locked = false; },
+	//      lock: function() { this.locked = true;  },
+	//      _content: [],
+	//      get content() {
+	//          if (this.locked) throw new Error("Locked!");
+	//          return this._content;
+	//      }
+	//  };
+	//
+	//  It is a box with a lock. Inside is an array, but you can get at it only when the box is
+	//  unlocked. Directly accessing the _content property is not allowed.
+	//
+	//  Write a function called withBoxUnlocked that takes a function value as argument, unlocks
+	//  the box, runs the function, and then ensures that the box is locked again before returning,
+	//  regardless of whether the argument function returned normally or threw an exception.
+	//
+	//  For extra points, make sure that if you call withBoxUnlocked when the box is already
+	//  unlocked, the box stays unlocked.
+	// ============================================================================================
 
-    let box = {
-        isLocked: true,
-        _content: [],
+	let box = {
+		isLocked: true,
+		_content: [],
 
-        unlock() {
-            this.isLocked = false;
-        },
-        
-        lock() {
-            this.isLocked = true;
-        },
+		unlock() {
+			this.isLocked = false;
+		},
+		
+		lock() {
+			this.isLocked = true;
+		},
 
-        get content() {
-            if (this.isLocked) throw new Error("Locked!");
-            return this._content;
-        }
-    };
+		get content() {
+			if (this.isLocked) throw new Error("Locked!");
+			return this._content;
+		}
+	};
 
-    const withBoxUnlocked = function withBoxUnlockedDeclaration(body) {
-        let preState = box.isLocked;
+	const withBoxUnlocked = function withBoxUnlockedDeclaration(body) {
+		let preState = box.isLocked;
 
-        if (preState) box.unlock();
+		if (preState) box.unlock();
 
-        try {
-            body();
-        } catch (error) {
-            throw error;
-        } finally {
-            if (preState) box.lock();
-        }
-    }
+		try {
+			body();
+		} catch (error) {
+			throw error;
+		} finally {
+			if (preState) box.lock();
+		}
+	}
+}());
+
+
+// =======================================================
+//  Eloquent Javascript, Chapter 9 - Regular Expressions
+//
+//  http://eloquentjavascript.net/09_regexp.html
+// =======================================================
+(function() {
+
+	// ============================================================================================
+	//  Eloquent Javascript Exercises - Regexp golf
+	//
+	//  Code golf is a term used for the game of trying to express a particular program in as
+	//  few characters as possible. Similarly, regexp golf is the practice of writing as tiny
+	//  a regular expression as possible to match a given pattern, and only that pattern.
+	//
+	//  For each of the following items, write a regular expression to test whether any of the
+	//  given substrings occur in a string. The regular expression should match only strings
+	//  containing one of the substrings described. Do not worry about word boundaries unless
+	//  explicitly mentioned. When your expression works, see whether you can make it any smaller.
+	// ============================================================================================
+
+	const verify = function verifyRegExpAsserts(regexp, yes, no) {
+		yes.forEach(str => {
+			if (!regexp.test(str)) {
+				console.log("Failure to match '" + str + "'");
+			}
+		});
+
+		no.forEach(str => {
+			if (regexp.test(str)) {
+				console.log("Unexpected match for '" + str + "'");
+			}
+		});
+	};
+
+	// 1. car and cat.
+	verify(
+		/ca[rt]/,
+		["my car", "bad cats"],
+		["camper", "high art"]
+	);
+
+	// 2. pop and prop.
+	verify(
+		/pr?op/,
+		["pop culture", "mad props"],
+		["plop"]
+	);
+
+	// 3. ferret, ferry, and ferrari.
+	verify(
+		/ferr(et|y|ari)/,
+		["ferret", "ferry", "ferrari"],
+		["ferrum", "transfer A"]
+	);
+
+	// 4. Any word ending in ious.
+	verify(
+		/\w+ious\b/,
+		["how delicious", "spacious room"],
+		["ruinous", "consciousness"]
+	);
+
+	// 5. A whitespace character followed by a dot, comma, colon, or semicolon.
+	verify(
+		/\s[.,;:]/,
+		["bad punctuation ."],
+		["escape the dot"]
+	);
+
+	// 6. A word longer than six letters.
+	verify(
+		/\w{7,}/,
+		["hottentottententen"],
+		["no", "hotten totten tenten"]
+	);
+
+	// 7. A word without the letter e.
+	verify(
+		/\b[a-df-z\d]+\b/i,
+		["red platypus", "wobbling nest"],
+		["earth bed", "learning ape"]
+	);
+
+
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - Quoting style
+	//
+	//  Imagine you have written a story and used single quotation marks throughout to mark
+	//  pieces of dialogue. Now you want to replace all the dialogue quotes with double quotes,
+	//  while keeping the single quotes used in contractions like aren’t.
+	//
+	//  Think of a pattern that distinguishes these two kinds of quote usage and craft a call to
+	//  the replace method that does the proper replacement.
+	// ==========================================================================================
+
+	let text     = "'I'm the cook', he said, 'it's my job.'";
+	let expected = '"I\'m the cook", he said, "it\'s my job."';
+	let success  = text.replace(/(^|\W)'|'(\W|$)/g, "$1\"$2") == expected;
+
+
+	// ==========================================================================================
+	//  Eloquent Javascript Exercises - Numbers Again
+	//
+	//  A series of digits can be matched by the simple regular expression /\d+/.
+	//
+	//  Write an expression that matches only JavaScript-style numbers. It must support an
+	//  optional minus or plus sign in front of the number, the decimal dot, and exponent
+	//  notation — 5e-3 or 1E10 — again with an optional sign in front of the exponent. Also note
+	//  that it is not necessary for there to be digits in front of or after the dot, but the
+	//  number cannot be a dot alone. That is, .5 and 5. are valid JavaScript numbers, but a
+	//  lone dot isn’t.
+	// ==========================================================================================
+
+	verify(
+		/^[+-]?(?:\d*\.?\d+|\d+\.\d*?)(?:[eE][+-]?\d+)?$/,
+		["1", "-1", "+15", "1.55", ".5", "5.", "1.3e2", "1E-4", "1e+12"],
+		["1a", "+-1", "1.2.3", "1+1", "1e4.5", ".5.", "1f5", "."]
+	);
 }());
