@@ -1,16 +1,16 @@
-const gulp = require('gulp');
+import gulp from 'gulp';
 
 // Plugins
-const sourcemaps = require('gulp-sourcemaps');
-const babel = require('gulp-babel');
-const uglify = require('gulp-uglify');
-const sass = require('gulp-sass');
-const imagemin = require('gulp-imagemin');
-const cache	= require('gulp-cache');
+import sourcemaps from 'gulp-sourcemaps';
+import babel from 'gulp-babel';
+import uglify from 'gulp-uglify';
+import sass from 'gulp-sass';
+import imagemin from 'gulp-imagemin';
+import cache from 'gulp-cache';
 
 // Helpers
-const del = require('del');
-const lazypipe = require('lazypipe');
+import del from 'del';
+import lazypipe from 'lazypipe';
 
 // Paths
 const PATHS = {
