@@ -19,7 +19,7 @@ Let's define some kind of rules:
 
 ## Vanilla Projects
 
-* [Ginger Parking v1](./ginger-parking/index.html)
+* [Ginger Parking v1](./ginger-parking)
 
 ## Angular Projects
 
