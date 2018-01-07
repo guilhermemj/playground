@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Vue Todo List</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+</head>
+<body>
+	<div id="app" class="container pt-4">
+
+		<header>
+			<h1 class="title">Vue Todo List</h1>
+
+			<p class="subtitle">A simple todo list powered by Vue.js and Bootstrap.</p>
+		</header>
+
+		<main>
+			<div is="todo-form" @valid-submit="addTask"></div>
+
+			<ul class="list-group">
+				<li class="list-group-item" is="todo-item" v-for="task of sortedTasks" :key="task.id" :task="task" @remove="removeTask"></li>
+			</ul>
+		</main>
+	</div>
+
+	<script src="./app.js"></script>
+</body>
+</html>
