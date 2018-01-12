@@ -1,13 +1,12 @@
-# Vue Todo List
+# Vue Todo
 
 A simple todo list powered by Vue.js and Bootstrap.
 
-## Vue Todo List to do list
+## Vue Todo to do list
 
 * ~~List tasks;~~
-* ~~Add tasks;~~ 
+* ~~Add tasks;~~
 * ~~Remove tasks;~~
 * ~~Complete tasks;~~
-* Integrate with localStorage;
+* ~~Integrate with localStorage;~~
 * Drag'n drop positioning;
-* Sexy styling (Custom CSS is sweet!).

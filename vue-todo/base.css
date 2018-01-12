@@ -1,0 +1,60 @@
+body {
+	color: #35495e;
+}
+
+.title .alt {
+	color: #42b883;
+}
+
+
+/* Tasks */
+.task {
+	position: relative;
+	cursor: pointer;
+}
+
+.task.completed {
+	color: #868e96;
+}
+
+/* Task text */
+.task-text {
+	position: relative;
+}
+
+.task-text::before {
+	content: '';
+
+	position: absolute;
+	top: calc(50% + 1px); /* Don't ask */
+	left: 50%;
+
+	background: #868e96;
+	width: 0;
+	height: 1px;
+
+	transition: width .1s, left .1s;
+}
+
+.task.completed .task-text::before {
+	left: 0;
+	width: 100%;
+}
+
+/* Task close button */
+.task .close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	opacity: .625;
+	transition: opacity .25s;
+}
+
+.task .close:hover {
+	opacity: 1;
+}
+
+.task:not(:hover) .close {
+	opacity: 0;
+}
