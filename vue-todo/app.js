@@ -26,11 +26,11 @@ const app = (() => {
 	const getNextTaskId = () => TaskIdCounter++;
 
 	class Task {
-		constructor(text, done) {
+		constructor(text, isDone) {
 			this.text     = text;
 			this.id       = getNextTaskId();
 			this.position = 1;
-			this.isDone   = !!done;
+			this.isDone   = !!isDone;
 		}
 
 		static parse({text, isDone}) {
@@ -45,7 +45,7 @@ const app = (() => {
 
 	Vue.component('todo-form', {
 		template: `
-			<form class="form" @submit.prevent="validateForm" autocomplete="off">
+			<form class="form" :class="{ 'was-validated': validated }" @submit.prevent="validate" autocomplete="off" novalidate>
 				<div class="form-group">
 					<div class="input-group">
 						<input type="text" name="task-text" class="form-control" placeholder="Add a task..." required>
@@ -58,13 +58,32 @@ const app = (() => {
 			</form>
 		`,
 
+		data() {
+			return {
+				validated: false,
+			};
+		},
+
 		methods: {
-			validateForm() {
+			validate() {
+				this.validated = true;
+
+				if (!this.$el.checkValidity()) return;
+
 				const input = this.$el.querySelector('[name=task-text]');
 
-				if (!input) return;
+				if (!input) throw new ReferenceError('Input field not found');
 
-				this.$emit('valid-submit', input.value);
+				this.submit(input.value);
+			},
+
+			submit(data) {
+				this.$emit('valid-submit', data);
+				this.reset();
+			},
+
+			reset() {
+				this.validated = false;
 				this.$el.reset();
 			},
 		},
@@ -86,7 +105,7 @@ const app = (() => {
 		props: {
 			task: {
 				type: Task,
-				default: null,
+				required: true,
 			},
 		},
 
