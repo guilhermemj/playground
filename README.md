@@ -21,8 +21,10 @@ Let's define some kind of rules:
 
 * [Ginger Parking v1](./ginger-parking)
 
-## Angular Projects
+## Vue Projects
 
-Actually you'll have to manually serve them, but here are the folders' links anyway.
+* [Vue Todo](./vue-todo)
+
+## Angular Projects
 
 * [Angular's tutorial Tour of Heroes](./tour-of-heroes)
