@@ -29,23 +29,18 @@
 	// ==========================================================================================
 
 	// Code Golf version
-	for (let str = '#'; str.length <= 7; str += '#') console.log(str);
+	for (let str = '#'; str.length < 8; str += '#') console.log(str);
 
 	// Overkilling version
 	const repeat = (fn, times = 1) => {
-		for (let counter = 1; counter <= times; counter++) {
+		for (let counter = 0; counter < times; counter++) {
 			fn(counter);
 		}
 	};
 
-	const codeBlock = '#';
-	let triangleString = '';
-
 	repeat((counter) => {
-		triangleString += `${codeBlock.repeat(counter)}\n`;
+		console.log('#'.repeat(counter + 1));
 	}, 7);
-
-	console.log(triangleString);
 })();
 
 (() => {
@@ -80,7 +75,7 @@
 	// Overkilling Version
 	const isDivisible = (dividend, divider) => !(dividend % divider);
 
-	const createArray = (elementCreator, length) => {
+	const createArray = (elementCreator, length = 0) => {
 		let array = [];
 
 		for (let index = 0; index < length; index++) {
@@ -109,4 +104,67 @@
 	};
 
 	console.log(UltimateFizzBuzz(100).join('\n'));
+})();
+
+(() => {
+
+	// =============================================================================================
+	//   Chess board
+	//  -------------
+	//
+	//  Write a program that creates a string that represents an 8×8 grid, using newline
+	//  characters to separate lines. At each position of the grid there is either a space or
+	//  a "#" character. The characters should form a chess board.
+	//
+	//  Passing this string to console.log should show something like this:
+	//   # # # #
+	//  # # # #
+	//   # # # #
+	//  # # # #
+	//   # # # #
+	//  # # # #
+	//   # # # #
+	//  # # # #
+	//
+	//  When you have a program that generates this pattern, define a binding size = 8 and change
+	//  the program so that it works for any size, outputting a grid of the given width and height.
+	// =============================================================================================
+
+	// Code Golf Version
+	let size = 8, str = '';
+
+	for (let i = 0; i < size; i++) {
+		if (!!i) str += '\n';
+
+		for (let j = 0; j < size; j++) {
+			str += (i + j) % 2 ? '#' : ' ';
+		}
+	}
+
+	console.log(str);
+
+	// Overkilling Version
+	const repeat = (fn, times = 1) => {
+		for (let counter = 0; counter < times; counter++) {
+			fn(counter);
+		}
+	};
+
+	const chessBoardGenerator = (size = 8) => {
+		const getPositionChar = (rowIndex, columnIndex) => (rowIndex + columnIndex) % 2 ? '#' : ' ';
+
+		let board = '';
+
+		repeat((rowIndex) => {
+			if (!!rowIndex) board += '\n';
+
+			repeat((columnIndex) => {
+				board += getPositionChar(rowIndex, columnIndex);
+			}, size)
+		}, size)
+
+		return board;
+	}
+
+	console.log(chessBoardGenerator());
 })();
