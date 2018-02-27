@@ -1,9 +1,9 @@
 
-// ==========================================================
+// ======================================================================
 //  Eloquent Javascript, Chapter 2 - Program Structure
 //
-//  http://eloquentjavascript.net/02_program_structure.html
-// ==========================================================
+//  http://eloquentjavascript.net/2nd_edition/02_program_structure.html
+// ======================================================================
 (function() {
 	'use strict';
 
@@ -45,17 +45,17 @@
 }());
 
 
-// ==================================================
+// ==============================================================
 //  Eloquent Javascript, Chapter 3 - Functions
 //
-//  http://eloquentjavascript.net/03_functions.html
-// ==================================================
+//  http://eloquentjavascript.net/2nd_edition/03_functions.html
+// ==============================================================
 (function() {
 	"use strict";
 
 	// ================================================================================
 	//  Eloquent Javascript Exercises - Recursive Evenness
-	// 
+	//
 	//  We’ve seen that % (the remainder operator) can be used to test whether a
 	//  number is even or odd by using % 2 to check whether it’s divisible by two.
 	//
@@ -85,7 +85,7 @@
 
 		return isEven( number + (number > 1 ? -2 : 2) );
 	}
-	
+
 	// ==========================================================================================
 	//  Eloquent Javascript Exercises - Bean Counting
 	//
@@ -146,10 +146,10 @@
 	 */
 	function countCharRecursively(str, char) {
 		if (!str.length) return 0;
-		
+
 		return (str.charAt(i) == char ? 1 : 0) + countCharRecursively(str.substring(1), char);
 	}
-  
+
 	/**
 	 *  Encapsulates and correctly initiates the recursive, no-substring, function.
 	 *
@@ -161,7 +161,7 @@
 	function countCharNoSubstring(str, char) {
 		return trueCountCharNoSubstring(str, char, str.length - 1);
 	}
-  
+
 	/**
 	 *  Count occurrencies of given char in a string, recursively, without using `substring`.
 	 *
@@ -185,7 +185,7 @@
 // =======================================================================
 //  Eloquent Javascript, Chapter 4 - Data Structures: Objects and Arrays
 //
-//  http://eloquentjavascript.net/04_data.html
+//  http://eloquentjavascript.net/2nd_edition/04_data.html
 // =======================================================================
 (function() {
 
@@ -263,10 +263,10 @@
 		for (let i = arr.length - 1; i >= 0; i--) {
 			revArr.push(arr[i]);
 		}
-		
+
 		return revArr;
 	};
-	
+
 	/**
 	 *  Reverse given array.
 	 *
@@ -414,11 +414,11 @@
 }());
 
 
-// ==========================================================
+// =================================================================
 //  Eloquent Javascript, Chapter 5 - Higher-Order Functions
 //
-//  http://eloquentjavascript.net/05_higher_order.html
-// ==========================================================
+//  http://eloquentjavascript.net/2nd_edition/05_higher_order.html
+// =================================================================
 (function() {
 
 	const ancestry = [
@@ -473,7 +473,7 @@
 		{"name":"Jacobus Bernardus van Brussel","sex":"m","born":1736,"died":1809,"father":"Jan van Brussel",
 		"mother":"Elisabeth Haverbeke"}
 	];
-	
+
 	// ==========================================================================================
 	//  Eloquent Javascript Exercises - Mother-child age difference
 	//
@@ -488,7 +488,7 @@
 
 	/**
 	 *  Get average value of a set of numbers.
-	 * 
+	 *
 	 *  @param {Number[]} array - Input array.
 	 *
 	 *  @returns {Number} - Average value.
@@ -615,7 +615,7 @@
 // ==============================================================
 //  Eloquent Javascript, Chapter 6 - The Secret Life of Objects
 //
-//  http://eloquentjavascript.net/06_object.html
+//  http://eloquentjavascript.net/2nd_edition/06_object.html
 // ==============================================================
 (function() {
 
@@ -655,7 +655,7 @@
 
 	//  ES6 Approach
 	// ===============
-	
+
 	class VectorES6 {
 		constructor(x, y) {
 			this.x = x;
@@ -680,7 +680,7 @@
 // ============================================================
 //  Eloquent Javascript, Chapter 7 - Project: Electronic Life
 //
-//  http://eloquentjavascript.net/07_elife.html
+//  http://eloquentjavascript.net/2nd_edition/07_elife.html
 // ============================================================
 (function() {
 
@@ -767,7 +767,7 @@
 
 		look(dir) {
 			let target = this.vector.plus( DIRECTIONS.get(dir) );
-			
+
 			return this.world.grid.isInside(target) ?
 				charFromElement( this.world.grid.get(target) ) :
 				'#'
@@ -865,7 +865,7 @@
 			if (view.look(this.direction) != " ") {
 				this.direction = view.find(" ") || "s";
 			}
-			
+
 			return { type: "move", direction: this.direction };
 		}
 	}
@@ -876,13 +876,13 @@
 		}
 
 		act(view) {
-			
+
 			if (view.look( dirPlus(this.dir, -3) ) != " ") {
 				this.dir = dirPlus(this.dir, -2);
 			}
-			
+
 			let start = this.dir;
-			
+
 			while (view.look(this.dir) != " ") {
 				this.dir = dirPlus(this.dir, 1);
 
@@ -1130,12 +1130,12 @@
 				if (view.look(this.direction) != " ") {
 					this.direction = space;
 				}
-	
+
 				// But memorizing the way if plant location is known
 				if (!!this.foodMap.length) {
 					this.foodMap.push( dirPlus(this.direction, 4) );
 				}
-	
+
 				return {
 					type: "move",
 					direction: this.direction
@@ -1166,7 +1166,7 @@
 
 		act(view) {
 			let space = view.find(" ");
-			
+
 			// Reproduce when enough energy and space
 			if (this.energy > 400 && !!space) return {
 				type: "reproduce",
@@ -1276,14 +1276,14 @@
 		}, 125);
 	});
 	*/
-	
+
 }());
 
 
 // ===========================================================
 //  Eloquent Javascript, Chapter 8 - Bugs and Error Handling
 //
-//  http://eloquentjavascript.net/08_error.html
+//  http://eloquentjavascript.net/2nd_edition/08_error.html
 // ===========================================================
 (function() {
 
@@ -1299,7 +1299,7 @@
 	// ==========================================================================================
 
 	function MultiplicatorUnitFailure() {}
-	
+
 	function primitiveMultiply(a, b) {
 		if (Math.random() < 0.5) return a * b;
 
@@ -1315,7 +1315,7 @@
 			}
 		}
 	}
-	
+
 
 	// ==========================================================================================
 	//  Eloquent Javascript Exercises - The locked box
@@ -1351,7 +1351,7 @@
 		unlock() {
 			this.isLocked = false;
 		},
-		
+
 		lock() {
 			this.isLocked = true;
 		},
@@ -1378,11 +1378,11 @@
 }());
 
 
-// =======================================================
+// ===========================================================
 //  Eloquent Javascript, Chapter 9 - Regular Expressions
 //
-//  http://eloquentjavascript.net/09_regexp.html
-// =======================================================
+//  http://eloquentjavascript.net/2nd_edition/09_regexp.html
+// ===========================================================
 (function() {
 
 	// ============================================================================================
@@ -1499,11 +1499,11 @@
 }());
 
 
-// ================================================
+// ============================================================
 //  Eloquent Javascript, Chapter 10 - Modules
 //
-//  http://eloquentjavascript.net/10_modules.html
-// ================================================
+//  http://eloquentjavascript.net/2nd_edition/10_modules.html
+// ============================================================
 (function () {
 
 	// ======================================================================================

@@ -1,14 +1,14 @@
-// =====================================================================
+// ======================================================================
 //  Eloquent Javascript, Chapter 2 - Program Structure
 //
 //  http://eloquentjavascript.net/3rd_edition/02_program_structure.html
-// =====================================================================
+// ======================================================================
 
 (() => {
 
 	// ==========================================================================================
 	//   Looping a triangle
-	//  ---------------------
+	// ------------------------------------------------------------------------------------------
 	//
 	//  Write a loop that makes seven calls to console.log to output the following triangle:
 	//
@@ -47,7 +47,7 @@
 
 	// ==========================================================================================
 	//   FizzBuzz
-	//  -----------
+	// ------------------------------------------------------------------------------------------
 	//
 	//  Write a program that uses console.log to print all the numbers from 1 to 100, and
 	//  with two exceptions. For numbers divisible by 3, print "Fizz" instead of the number,
@@ -110,7 +110,7 @@
 
 	// =============================================================================================
 	//   Chess board
-	//  -------------
+	// ---------------------------------------------------------------------------------------------
 	//
 	//  Write a program that creates a string that represents an 8×8 grid, using newline
 	//  characters to separate lines. At each position of the grid there is either a space or
@@ -150,7 +150,7 @@
 		}
 	};
 
-	const chessBoardGenerator = (size = 8) => {
+	const generateChessBoard = (size = 8) => {
 		const getPositionChar = (rowIndex, columnIndex) => (rowIndex + columnIndex) % 2 ? '#' : ' ';
 
 		let board = '';
@@ -166,5 +166,5 @@
 		return board;
 	}
 
-	console.log(chessBoardGenerator());
+	console.log(generateChessBoard());
 })();
