@@ -1,0 +1,42 @@
+{
+  "name": "tdd-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "lint": "eslint src/",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha",
+    "test:tdd": "mocha -w",
+    "test:coverage": "nyc npm test"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-eslint": "^10.0.2",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "moxios": "^0.4.0"
+  }
+}
