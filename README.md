@@ -16,15 +16,3 @@ Let's define some kind of rules:
 * As projects start to grow, they will be moved to proper folders and become eligible for having their own repository. Links will pop up here as this happens.
 * Everything done here must be for the sake of learning.
 * Nothing is true, everything is permited.
-
-## Vanilla Projects
-
-* [Ginger Parking v1](./ginger-parking)
-
-## Vue Projects
-
-* [Vue Todo](./vue-todo)
-
-## Angular Projects
-
-* [Angular's tutorial Tour of Heroes](./tour-of-heroes)
