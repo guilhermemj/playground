@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import fizzBuzz from '../src/fizzbuzz';
 
-describe('FizzBuzz', function () {
-  describe('Smoke tests', function () {
-    it('Should be a function', function () {
+describe('FizzBuzz', () => {
+  describe('Smoke tests', () => {
+    it('Should be a function', () => {
       expect(fizzBuzz).to.exist;
       expect(fizzBuzz).to.be.a('function');
     });
 
-    it('Should return a value', function () {
+    it('Should return a value', () => {
       expect(fizzBuzz(1)).not.to.be.undefined;
       expect(fizzBuzz(3)).not.to.be.undefined;
       expect(fizzBuzz(5)).not.to.be.undefined;
@@ -16,8 +16,8 @@ describe('FizzBuzz', function () {
     });
   });
 
-  describe('Exhaustive tests', function () {
-    it('Should return "Fizz" for multiples of 3', function () {
+  describe('Exhaustive tests', () => {
+    it('Should return "Fizz" for multiples of 3', () => {
       // Positive cases
       expect(fizzBuzz(3)).to.be.equal('Fizz');
       expect(fizzBuzz(33)).to.be.equal('Fizz');
@@ -29,7 +29,7 @@ describe('FizzBuzz', function () {
       expect(fizzBuzz(150)).not.to.be.equal('Fizz');
     });
 
-    it('Should return "Buzz" for multiples of 5', function () {
+    it('Should return "Buzz" for multiples of 5', () => {
       // Positive cases
       expect(fizzBuzz(5)).to.be.equal('Buzz');
       expect(fizzBuzz(10)).to.be.equal('Buzz');
@@ -41,7 +41,7 @@ describe('FizzBuzz', function () {
       expect(fizzBuzz(150)).not.to.be.equal('Buzz');
     });
 
-    it('Should return "FizzBuzz" for multiples of 3 and 5', function () {
+    it('Should return "FizzBuzz" for multiples of 3 and 5', () => {
       // Positive cases
       expect(fizzBuzz(15)).to.be.equal('FizzBuzz');
       expect(fizzBuzz(30)).to.be.equal('FizzBuzz');
@@ -53,7 +53,7 @@ describe('FizzBuzz', function () {
       expect(fizzBuzz(99)).not.to.be.equal('FizzBuzz');
     });
 
-    it('Should return numbers not divisible by 3 nor 5 as is', function () {
+    it('Should return numbers not divisible by 3 nor 5 as is', () => {
       // Positive cases
       expect(fizzBuzz(2)).to.be.equal(2);
       expect(fizzBuzz(4)).to.be.equal(4);

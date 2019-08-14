@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "babel src -d dist -w",
+    "lint": "eslint src/",
+    "lint:fix": "npm run lint -- --fix",
     "build": "babel src -d dist",
     "test": "mocha",
     "test:tdd": "mocha -w",
@@ -20,6 +20,9 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
     "chai": "^4.2.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1"
   },

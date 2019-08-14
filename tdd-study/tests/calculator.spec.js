@@ -6,7 +6,7 @@ const testIOFunction = (testCases, testFn) => {
   testCases.forEach(({ args, expectedResult }) => {
     const testTitle = `Should return "${expectedResult}" when called with (${args.join(', ')})`;
 
-    it(testTitle, function () {
+    it(testTitle, () => {
       const result = testFn(...args);
 
       expect(result).to.be.equal(expectedResult);
@@ -14,45 +14,30 @@ const testIOFunction = (testCases, testFn) => {
   });
 };
 
-describe('Calculator', function () {
-  let calc;
-
-  beforeEach(function () {
-    calc = new Calculator();
-  });
-
-  afterEach(function () {
-    calc = null;
-  });
-
-  describe('Smoke tests', function () {
-    it('Should create an instance', function () {
-      expect(calc).to.exist;
-      expect(calc).to.be.a('object');
+describe('Calculator', () => {
+  describe('Smoke tests', () => {
+    it('Should define a "sum" method', () => {
+      expect(Calculator.sum).to.exist;
+      expect(Calculator.sum).to.be.a('function');
     });
 
-    it('Should define a "sum" method', function () {
-      expect(calc.sum).to.exist;
-      expect(calc.sum).to.be.a('function');
+    it('Should define a "sub" method', () => {
+      expect(Calculator.sub).to.exist;
+      expect(Calculator.sub).to.be.a('function');
     });
 
-    it('Should define a "sub" method', function () {
-      expect(calc.sub).to.exist;
-      expect(calc.sub).to.be.a('function');
+    it('Should define a "mult" method', () => {
+      expect(Calculator.mult).to.exist;
+      expect(Calculator.mult).to.be.a('function');
     });
 
-    it('Should define a "mult" method', function () {
-      expect(calc.mult).to.exist;
-      expect(calc.mult).to.be.a('function');
-    });
-
-    it('Should define a "div" method', function () {
-      expect(calc.div).to.exist;
-      expect(calc.div).to.be.a('function');
+    it('Should define a "div" method', () => {
+      expect(Calculator.div).to.exist;
+      expect(Calculator.div).to.be.a('function');
     });
   });
 
-  describe('Sum method', function () {
+  describe('Sum method', () => {
     const testCases = [
       {
         args: [2, 1],
@@ -80,10 +65,10 @@ describe('Calculator', function () {
       },
     ];
 
-    testIOFunction(testCases, (...args) => calc.sum(...args));
+    testIOFunction(testCases, (...args) => Calculator.sum(...args));
   });
 
-  describe('Subtraction method', function () {
+  describe('Subtraction method', () => {
     const testCases = [
       {
         args: [2, 1],
@@ -111,10 +96,10 @@ describe('Calculator', function () {
       },
     ];
 
-    testIOFunction(testCases, (...args) => calc.sub(...args));
+    testIOFunction(testCases, (...args) => Calculator.sub(...args));
   });
 
-  describe('Multiplication method', function () {
+  describe('Multiplication method', () => {
     const testCases = [
       {
         args: [2, 1],
@@ -142,12 +127,12 @@ describe('Calculator', function () {
       },
     ];
 
-    testIOFunction(testCases, (...args) => calc.mult(...args));
+    testIOFunction(testCases, (...args) => Calculator.mult(...args));
   });
 
-  describe('Division method', function () {
-    it('Should throw when dividing by zero', function () {
-      expect(() => calc.div(1, 0)).to.throw();
+  describe('Division method', () => {
+    it('Should throw when dividing by zero', () => {
+      expect(() => Calculator.div(1, 0)).to.throw();
     });
 
     const testCases = [
@@ -177,6 +162,6 @@ describe('Calculator', function () {
       },
     ];
 
-    testIOFunction(testCases, (...args) => calc.div(...args));
+    testIOFunction(testCases, (...args) => Calculator.div(...args));
   });
 });
