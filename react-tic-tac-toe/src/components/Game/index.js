@@ -4,6 +4,7 @@ import { BOARD_SIZE, PLAYERS, WINNING_CONDITIONS } from '../../config';
 import { cloneObject, createBoard } from '../../utils';
 
 import Board from '../Board';
+import GameStatus from '../GameStatus';
 import MoveList from '../MoveList';
 
 export class Game extends React.Component {
@@ -44,11 +45,11 @@ export class Game extends React.Component {
       const player = squares[cond[0].row][cond[0].col];
 
       if (!!player && cond.every(({ row, col }) => squares[row][col] === player)) {
-        return { winner: player, squares: cond };
+        return { player, squares: cond };
       }
     }
 
-    return { winner: null, squares: [] };
+    return { player: null, squares: [] };
   }
 
   getIsBoardFull() {
@@ -57,8 +58,18 @@ export class Game extends React.Component {
     return squares.every((row) => row.every((col) => col !== null));
   }
 
-  getIsGameOver() {
-    return this.getIsBoardFull() || !!this.getGameWinner().winner;
+  getGameResults() {
+    const isBoardFull = this.getIsBoardFull();
+    const winnerResults = this.getGameWinner();
+    const hasWinner = !!winnerResults.player;
+
+    return {
+      isGameOver: isBoardFull || hasWinner,
+      isDraw: isBoardFull && !hasWinner,
+      hasWinner,
+      winnerPlayer: winnerResults.player,
+      winnerSquares: winnerResults.squares,
+    };
   }
 
   getMoveList() {
@@ -72,7 +83,9 @@ export class Game extends React.Component {
   // --------------------
 
   makeMove(row, col) {
-    if (this.getIsGameOver()) return;
+    const gameResults = this.getGameResults();
+
+    if (gameResults.isGameOver) return;
 
     const currentMove = this.getCurrentMove();
 
@@ -110,16 +123,13 @@ export class Game extends React.Component {
   render() {
     const moveList = this.getMoveList();
     const currentMove = this.getCurrentMove();
-    const results = this.getGameWinner();
+    const gameResults = this.getGameResults();
 
     function shouldHighlightSquare(row, col) {
-      return results.squares.some(
+      return gameResults.winnerSquares.some(
         (item) => item.row === row && item.col === col
       );
     }
-
-    const nextPlayer = this.getCurrentPlayer();
-    const status = results.winner ? `Winner: ${results.winner}` : `Next player: ${nextPlayer}`;
 
     return (
       <div className="game">
@@ -132,7 +142,10 @@ export class Game extends React.Component {
         </div>
 
         <div className="game-info">
-          <div>{ status }</div>
+          <GameStatus
+            gameResults={gameResults}
+            currentPlayer={this.getCurrentPlayer()}
+          />
 
           <button onClick={this.toggleHistoryDirection.bind(this)}>
             Sort move list: {this.state.isHistoryDesc ? '↓' : '↑'}
