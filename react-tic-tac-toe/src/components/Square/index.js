@@ -1,6 +1,6 @@
-export const Square = (props) => (
-  <button className="square" onClick={props.onClick}>
-    {props.value}
+export const Square = ({ value, isHighLight, onClick }) => (
+  <button className={ 'square' + (isHighLight ? ' highlight' : '')} onClick={onClick}>
+    {value}
   </button>
 );
 

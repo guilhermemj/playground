@@ -9,6 +9,7 @@ export const Board = (props) => (
           <Square
             key={col}
             value={value}
+            isHighLight={props.shouldHighLight(row, col)}
             onClick={() => props.onClick(row, col)}
           />
         ))}
