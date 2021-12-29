@@ -17,6 +17,8 @@ export class Game extends React.Component {
         squares: createBoard(BOARD_SIZE),
         location: null,
       }],
+
+      isHistoryDesc: true,
     };
   }
 
@@ -59,6 +61,13 @@ export class Game extends React.Component {
     return this.getIsBoardFull() || !!this.getGameWinner();
   }
 
+  getMoveList() {
+    const { history, isHistoryDesc } = this.state;
+    const sortSign = isHistoryDesc ? 1 : -1;
+
+    return [...history].sort((a, b) => (a.stepNumber - b.stepNumber) * sortSign);
+  }
+
   //  Methods
   // --------------------
 
@@ -91,11 +100,16 @@ export class Game extends React.Component {
     this.setState({ currentStep: step });
   }
 
+  toggleHistoryDirection() {
+    this.setState((state) => ({ isHistoryDesc: !state.isHistoryDesc }));
+  }
+
   //  Render
   // --------------------
 
   render() {
-    const { squares } = this.getCurrentMove();
+    const moveList = this.getMoveList();
+    const currentMove = this.getCurrentMove();
 
     const winner = this.getGameWinner();
     const nextPlayer = this.getCurrentPlayer();
@@ -104,15 +118,22 @@ export class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={squares} onClick={this.makeMove.bind(this)} />
+          <Board
+            squares={currentMove.squares}
+            onClick={this.makeMove.bind(this)}
+          />
         </div>
 
         <div className="game-info">
           <div>{ status }</div>
 
+          <button onClick={this.toggleHistoryDirection.bind(this)}>
+            Sort move list: {this.state.isHistoryDesc ? '↓' : '↑'}
+          </button>
+
           <MoveList
-            currentStep={this.state.currentStep}
-            history={this.state.history}
+            currentStep={currentMove.stepNumber}
+            history={moveList}
             onClickItem={this.jumpTo.bind(this)}
           />
         </div>
