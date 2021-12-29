@@ -48,3 +48,11 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.move-list .selected-item {
+  font-weight: bold;
+}
+
+.move-list .selected-item button {
+  font-weight: inherit;
+}
