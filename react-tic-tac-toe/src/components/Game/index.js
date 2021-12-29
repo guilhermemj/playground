@@ -4,6 +4,7 @@ import { BOARD_SIZE, PLAYERS, WINNING_CONDITIONS } from '../../config';
 import { cloneObject, createBoard } from '../../utils';
 
 import Board from '../Board';
+import MoveList from '../MoveList';
 
 export class Game extends React.Component {
   constructor(props) {
@@ -100,21 +101,6 @@ export class Game extends React.Component {
     const nextPlayer = this.getCurrentPlayer();
     const status = winner ? `Winner: ${winner}` : `Next player: ${nextPlayer}`;
 
-    const moveList = this.state.history.map((move) => {
-      const description = (move.stepNumber > 0
-        ? `Go to move ${move.stepNumber} (${move.location.col}, ${move.location.row})`
-        : `Go to game start`
-      );
-
-      return (
-        <li key={move.stepNumber}>
-          <button onClick={this.jumpTo.bind(this, move.stepNumber)}>
-            {description}
-          </button>
-        </li>
-      );
-    });
-
     return (
       <div className="game">
         <div className="game-board">
@@ -123,7 +109,12 @@ export class Game extends React.Component {
 
         <div className="game-info">
           <div>{ status }</div>
-          <ol>{ moveList }</ol>
+
+          <MoveList
+            currentStep={this.state.currentStep}
+            history={this.state.history}
+            onClickItem={this.jumpTo.bind(this)}
+          />
         </div>
       </div>
     );
