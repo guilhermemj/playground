@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { calculateWinner } from '../../utils';
+import { BOARD_SIZE, PLAYERS, WINNING_CONDITIONS } from '../../config';
+import { cloneObject, createBoard } from '../../utils';
+
 import Board from '../Board';
 
 export class Game extends React.Component {
@@ -8,52 +10,107 @@ export class Game extends React.Component {
     super(props);
 
     this.state = {
-      history: [{ squares: Array(9).fill(null) }],
-      xIsNext: true,
-      stepNumber: 0,
+      currentStep: 0,
+      history: [{
+        stepNumber: 0,
+        squares: createBoard(BOARD_SIZE),
+        location: null,
+      }],
     };
   }
 
-  jumpTo(step) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0,
-    });
+  //  Computed
+  // --------------------
+
+  getCurrentPlayer() {
+    const { currentStep } = this.state;
+
+    return PLAYERS[currentStep % PLAYERS.length];
   }
 
-  handleClick(i) {
-    const { history, xIsNext, stepNumber } = this.state;
-    const { squares } = history[stepNumber];
+  getCurrentMove() {
+    const { currentStep, history } = this.state;
 
-    if (calculateWinner(squares) || squares[i]) {
-      return;
+    return history.find(item => item.stepNumber === currentStep);
+  }
+
+  getGameWinner() {
+    const { squares } = this.getCurrentMove();
+
+    for (const cond of WINNING_CONDITIONS) {
+      const player = squares[cond[0].row][cond[0].col];
+
+      if (!!player && cond.every(({ row, col }) => squares[row][col] === player)) {
+        return player
+      }
     }
 
-    const newSquares = squares.slice();
+    return null;
+  }
 
-    newSquares[i] = xIsNext ? 'X' : 'O';
+  getIsBoardFull() {
+    const { squares } = this.getCurrentMove();
+
+    return squares.every((row) => row.every((col) => col !== null));
+  }
+
+  getIsGameOver() {
+    return this.getIsBoardFull() || !!this.getGameWinner();
+  }
+
+  //  Methods
+  // --------------------
+
+  makeMove(row, col) {
+    if (this.getIsGameOver()) return;
+
+    const currentMove = this.getCurrentMove();
+
+    if (currentMove.squares[row][col] !== null) return;
+
+    const newMove = {
+      stepNumber: currentMove.stepNumber + 1,
+      squares: cloneObject(currentMove.squares),
+      location: { row, col },
+    };
+
+    newMove.squares[row][col] = this.getCurrentPlayer();
+
+    const newHistory = this.state.history.slice(0, currentMove.stepNumber + 1);
+
+    newHistory.push(newMove);
 
     this.setState({
-      history: [...history.slice(0, stepNumber + 1), { squares: newSquares }],
-      stepNumber: stepNumber + 1,
-      xIsNext: !xIsNext,
+      currentStep: newMove.stepNumber,
+      history: newHistory,
     });
   }
 
-  render() {
-    const { history, xIsNext, stepNumber } = this.state;
-    const { squares } = history[stepNumber];
+  jumpTo(step) {
+    this.setState({ currentStep: step });
+  }
 
-    const winner = calculateWinner(squares);
-    const nextPlayer = xIsNext ? 'X' : 'O';
+  //  Render
+  // --------------------
+
+  render() {
+    const { squares } = this.getCurrentMove();
+
+    const winner = this.getGameWinner();
+    const nextPlayer = this.getCurrentPlayer();
     const status = winner ? `Winner: ${winner}` : `Next player: ${nextPlayer}`;
 
-    const moves = history.map((step, move) => {
-      const desc = move ? `Go to move ${move}` : `Go to game start`;
+    const moveList = this.state.history.map((move) => {
+      const description = (move.stepNumber > 0
+        ? `Go to move ${move.stepNumber} (${move.location.col}, ${move.location.row})`
+        : `Go to game start`
+      );
 
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        <li key={move.stepNumber}>
+          <button onClick={this.jumpTo.bind(this, move.stepNumber)}>
+            {description}
+          </button>
         </li>
       );
     });
@@ -61,11 +118,12 @@ export class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board squares={squares} onClick={(i) => this.handleClick(i)} />
+          <Board squares={squares} onClick={this.makeMove.bind(this)} />
         </div>
+
         <div className="game-info">
           <div>{ status }</div>
-          <ol>{ moves }</ol>
+          <ol>{ moveList }</ol>
         </div>
       </div>
     );

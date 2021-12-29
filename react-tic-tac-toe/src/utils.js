@@ -1,21 +1,15 @@
-export function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
+export function createBoard(configStr) {
+  const REGEX = /\d[xX]\d/;
 
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
+  if (!REGEX.test(configStr)) {
+    throw new Error('Invalid board config');
   }
 
-  return null;
+  const [cols, rows] = configStr.toLowerCase().split('x').map((size) => Number.parseInt(size, 10));
+
+  return Array(rows).fill(Array(cols).fill(null));
+}
+
+export function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }
