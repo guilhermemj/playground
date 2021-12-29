@@ -44,11 +44,11 @@ export class Game extends React.Component {
       const player = squares[cond[0].row][cond[0].col];
 
       if (!!player && cond.every(({ row, col }) => squares[row][col] === player)) {
-        return player
+        return { winner: player, squares: cond };
       }
     }
 
-    return null;
+    return { winner: null, squares: [] };
   }
 
   getIsBoardFull() {
@@ -58,7 +58,7 @@ export class Game extends React.Component {
   }
 
   getIsGameOver() {
-    return this.getIsBoardFull() || !!this.getGameWinner();
+    return this.getIsBoardFull() || !!this.getGameWinner().winner;
   }
 
   getMoveList() {
@@ -110,16 +110,23 @@ export class Game extends React.Component {
   render() {
     const moveList = this.getMoveList();
     const currentMove = this.getCurrentMove();
+    const results = this.getGameWinner();
 
-    const winner = this.getGameWinner();
+    function shouldHighlightSquare(row, col) {
+      return results.squares.some(
+        (item) => item.row === row && item.col === col
+      );
+    }
+
     const nextPlayer = this.getCurrentPlayer();
-    const status = winner ? `Winner: ${winner}` : `Next player: ${nextPlayer}`;
+    const status = results.winner ? `Winner: ${results.winner}` : `Next player: ${nextPlayer}`;
 
     return (
       <div className="game">
         <div className="game-board">
           <Board
             squares={currentMove.squares}
+            shouldHighLight={shouldHighlightSquare}
             onClick={this.makeMove.bind(this)}
           />
         </div>
