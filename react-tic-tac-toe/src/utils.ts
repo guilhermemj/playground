@@ -1,4 +1,6 @@
-export function createBoard(configStr) {
+import { BoardSquare } from "./types";
+
+export function createBoard(configStr: string): BoardSquare[][] {
   const REGEX = /\d[xX]\d/;
 
   if (!REGEX.test(configStr)) {
@@ -10,6 +12,6 @@ export function createBoard(configStr) {
   return Array(rows).fill(Array(cols).fill(null));
 }
 
-export function cloneObject(obj) {
+export function cloneObject(obj: any) {
   return JSON.parse(JSON.stringify(obj));
 }

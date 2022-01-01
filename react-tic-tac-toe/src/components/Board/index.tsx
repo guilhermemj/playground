@@ -1,7 +1,11 @@
-import React from 'react';
 import Square from '../Square';
+import { BoardProps } from './types';
 
-export const Board = ({ squares, shouldHighLight, onClick }) => (
+export const Board = ({
+  squares,
+  shouldHighLight = () => false,
+  onClick = () => {},
+}: BoardProps) => (
   <div>
     {squares.map((cols, row) => (
       <div className="board-row" key={row}>
