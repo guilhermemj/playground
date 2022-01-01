@@ -1,4 +1,9 @@
-export const GameStatus = ({ gameResults, currentPlayer }) => {
+import { GameStatusProps } from './types';
+
+export const GameStatus = ({
+  gameResults,
+  currentPlayer,
+}: GameStatusProps) => {
   if (!gameResults.isGameOver) {
     return (
       <div>Next player: {currentPlayer}</div>

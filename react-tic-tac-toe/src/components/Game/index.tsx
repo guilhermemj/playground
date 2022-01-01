@@ -1,44 +1,64 @@
 import React from 'react';
 
 import { BOARD_SIZE, PLAYERS, WINNING_CONDITIONS } from '../../config';
+import { GameResults, HistoryEntry, MoveLocation, Player } from '../../types';
 import { cloneObject, createBoard } from '../../utils';
 
 import Board from '../Board';
 import GameStatus from '../GameStatus';
 import MoveList from '../MoveList';
 
-export class Game extends React.Component {
-  constructor(props) {
-    super(props);
+import { GameProps, GameState } from './types';
 
-    this.state = {
-      currentStep: 0,
-      history: [{
-        stepNumber: 0,
-        squares: createBoard(BOARD_SIZE),
-        location: null,
-      }],
+export class Game extends React.Component<GameProps, GameState> {
+  state: GameState = {
+    currentStep: 0,
+    history: [{
+      stepNumber: 0,
+      squares: createBoard(BOARD_SIZE),
+      location: null,
+    }],
 
-      isHistoryDesc: true,
-    };
+    isHistoryDesc: true,
   }
+
+  // constructor(props) {
+  //   super(props);
+
+  //   this.state = {
+  //     currentStep: 0,
+  //     history: [{
+  //       stepNumber: 0,
+  //       squares: createBoard(BOARD_SIZE),
+  //       location: null,
+  //     }],
+
+  //     isHistoryDesc: true,
+  //   };
+  // }
 
   //  Computed
   // --------------------
 
-  getCurrentPlayer() {
+  getCurrentPlayer(): Player {
     const { currentStep } = this.state;
 
     return PLAYERS[currentStep % PLAYERS.length];
   }
 
-  getCurrentMove() {
+  getCurrentMove(): HistoryEntry {
     const { currentStep, history } = this.state;
 
-    return history.find(item => item.stepNumber === currentStep);
+    const currentMove = history.find(item => item.stepNumber === currentStep);
+
+    if (!currentMove) {
+      throw new Error('currentStep is not present in history');
+    }
+
+    return currentMove;
   }
 
-  getGameWinner() {
+  getGameWinner(): { player: Player | null, squares: MoveLocation[] } {
     const { squares } = this.getCurrentMove();
 
     for (const cond of WINNING_CONDITIONS) {
@@ -52,13 +72,13 @@ export class Game extends React.Component {
     return { player: null, squares: [] };
   }
 
-  getIsBoardFull() {
+  getIsBoardFull(): boolean {
     const { squares } = this.getCurrentMove();
 
     return squares.every((row) => row.every((col) => col !== null));
   }
 
-  getGameResults() {
+  getGameResults(): GameResults {
     const isBoardFull = this.getIsBoardFull();
     const winnerResults = this.getGameWinner();
     const hasWinner = !!winnerResults.player;
@@ -72,7 +92,7 @@ export class Game extends React.Component {
     };
   }
 
-  getMoveList() {
+  getMoveList(): HistoryEntry[] {
     const { history, isHistoryDesc } = this.state;
     const sortSign = isHistoryDesc ? 1 : -1;
 
@@ -82,7 +102,7 @@ export class Game extends React.Component {
   //  Methods
   // --------------------
 
-  makeMove(row, col) {
+  makeMove(row: number, col: number): void {
     const gameResults = this.getGameResults();
 
     if (gameResults.isGameOver) return;
@@ -109,11 +129,11 @@ export class Game extends React.Component {
     });
   }
 
-  jumpTo(step) {
+  jumpTo(step: number): void {
     this.setState({ currentStep: step });
   }
 
-  toggleHistoryDirection() {
+  toggleHistoryDirection(): void {
     this.setState((state) => ({ isHistoryDesc: !state.isHistoryDesc }));
   }
 
@@ -125,7 +145,7 @@ export class Game extends React.Component {
     const currentMove = this.getCurrentMove();
     const gameResults = this.getGameResults();
 
-    function shouldHighlightSquare(row, col) {
+    function shouldHighlightSquare(row: number, col: number) {
       return gameResults.winnerSquares.some(
         (item) => item.row === row && item.col === col
       );

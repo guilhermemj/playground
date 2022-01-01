@@ -1,6 +1,12 @@
-export const MoveListItem = ({ move, isCurrent, onClick }) => {
+import { MoveListItemProps, MoveListProps } from './types';
+
+export const MoveListItem = ({
+  move,
+  isCurrent = false,
+  onClick = () => {},
+}: MoveListItemProps) => {
   const description = (move.stepNumber > 0
-    ? `Go to move ${move.stepNumber} (${move.location.col}, ${move.location.row})`
+    ? `Go to move ${move.stepNumber} (${move.location?.col}, ${move.location?.row})`
     : `Go to game start`
   );
 
@@ -13,7 +19,11 @@ export const MoveListItem = ({ move, isCurrent, onClick }) => {
   );
 };
 
-export const MoveList = ({ history, currentStep, onClickItem }) => (
+export const MoveList = ({
+  history,
+  currentStep,
+  onClickItem = () => {},
+}: MoveListProps) => (
   <ol className="move-list">
     {history.map((move) => (
       <MoveListItem
