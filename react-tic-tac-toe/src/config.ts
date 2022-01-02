@@ -1,9 +1,9 @@
-import { MoveLocation, Player } from "./types";
+import { SquareLocation, Player } from "./types";
 
 export const PLAYERS: Player[] = ['X', 'O'];
 export const BOARD_SIZE: string = '3x3';
 
-export const WINNING_CONDITIONS: MoveLocation[][] = [
+export const WINNING_CONDITIONS: SquareLocation[][] = [
   [
     { row: 0, col: 0 },
     { row: 0, col: 1 },

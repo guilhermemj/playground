@@ -1,16 +1,17 @@
 export type Player = string;
 
-export type BoardSquare = null | Player;
+export type SquareState = null | Player;
+export type BoardState = SquareState[][];
 
-export type MoveLocation = {
+export type SquareLocation = {
   row: number;
   col: number;
 };
 
-export type HistoryEntry = {
+export type Move = {
   stepNumber: number;
-  squares: BoardSquare[][],
-  location: MoveLocation | null;
+  squares: BoardState,
+  location: SquareLocation;
 };
 
 export type GameResults = {
@@ -18,5 +19,5 @@ export type GameResults = {
   isDraw: boolean;
   hasWinner: boolean;
   winnerPlayer: Player | null,
-  winnerSquares: MoveLocation[],
+  winnerSquares: SquareLocation[],
 };

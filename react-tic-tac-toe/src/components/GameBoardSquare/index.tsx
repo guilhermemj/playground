@@ -1,13 +1,13 @@
-import { SquareProps } from './types';
+import { GameBoardSquareProps } from './types';
 
-export const Square = ({
+export const GameBoardSquare = ({
   value,
   isHighLight = false,
   onClick = () => {},
-}: SquareProps) => (
+}: GameBoardSquareProps) => (
   <button className={ 'square' + (isHighLight ? ' highlight' : '')} onClick={onClick}>
     {value}
   </button>
 );
 
-export default Square;
+export default GameBoardSquare;
