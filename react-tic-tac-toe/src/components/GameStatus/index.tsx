@@ -18,7 +18,7 @@ export const GameStatus = ({
 
   if (gameResults.hasWinner) {
     return (
-      <div>Winner: {gameResults.winnerPlayer}. Congratulations!!</div>
+      <div>Winner: {gameResults.winner}. Congratulations!!</div>
     );
   }
 
