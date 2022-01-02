@@ -1,9 +1,9 @@
-import { SquareLocation, Player } from "./types";
+import { Player, WinCondition } from "./types";
 
 export const PLAYERS: Player[] = ['X', 'O'];
 export const BOARD_SIZE: string = '3x3';
 
-export const WINNING_CONDITIONS: SquareLocation[][] = [
+export const WIN_CONDITIONS: WinCondition[] = [
   [
     { row: 0, col: 0 },
     { row: 0, col: 1 },

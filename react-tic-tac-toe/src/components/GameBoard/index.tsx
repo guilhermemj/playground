@@ -4,7 +4,7 @@ import { GameBoardProps } from './types';
 export const GameBoard = ({
   squares,
   shouldHighLight = () => false,
-  onClick = () => {},
+  onClickSquare = () => {},
 }: GameBoardProps) => (
   <div>
     {squares.map((cols, row) => (
@@ -14,7 +14,7 @@ export const GameBoard = ({
             key={col}
             value={value}
             isHighLight={shouldHighLight(row, col)}
-            onClick={() => onClick(row, col)}
+            onClick={() => onClickSquare(row, col)}
           />
         ))}
       </div>

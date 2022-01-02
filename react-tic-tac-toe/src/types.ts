@@ -9,15 +9,17 @@ export type SquareLocation = {
 };
 
 export type Move = {
-  stepNumber: number;
-  squares: BoardState,
   location: SquareLocation;
+  stepNumber: number;
+  boardState: BoardState,
 };
+
+export type WinCondition = SquareLocation[];
 
 export type GameResults = {
   isGameOver: boolean;
   isDraw: boolean;
   hasWinner: boolean;
-  winnerPlayer: Player | null,
-  winnerSquares: SquareLocation[],
+  winner: Player | null,
+  winnerSquares: WinCondition,
 };

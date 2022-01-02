@@ -2,11 +2,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
 
-import Game from './components/Game';
+import { BOARD_SIZE, PLAYERS, WIN_CONDITIONS } from './config';
+import SquaresGame from './components/SquaresGame';
 
 const App = () => (
   <React.StrictMode>
-    <Game />
+    <SquaresGame
+      players={PLAYERS}
+      boardSize={BOARD_SIZE}
+      winConditions={WIN_CONDITIONS}
+    />
   </React.StrictMode>
 );
 
