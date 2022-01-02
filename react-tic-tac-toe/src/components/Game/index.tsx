@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { BOARD_SIZE, PLAYERS, WINNING_CONDITIONS } from '../../config';
-import { GameResults, HistoryEntry, MoveLocation, Player } from '../../types';
-import { cloneObject, createBoard } from '../../utils';
+import { GameResults, Move, SquareLocation, Player } from '../../types';
+import { cloneObject, createEmptyBoard } from '../../utils';
 
-import Board from '../Board';
+import GameBoard from '../GameBoard';
 import GameStatus from '../GameStatus';
-import MoveList from '../MoveList';
+import MoveHistory from '../MoveHistory';
 
 import { GameProps, GameState } from './types';
 
@@ -15,27 +15,12 @@ export class Game extends React.Component<GameProps, GameState> {
     currentStep: 0,
     history: [{
       stepNumber: 0,
-      squares: createBoard(BOARD_SIZE),
-      location: null,
+      squares: createEmptyBoard(BOARD_SIZE),
+      location: { row: -1, col: -1 },
     }],
 
     isHistoryDesc: true,
   }
-
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = {
-  //     currentStep: 0,
-  //     history: [{
-  //       stepNumber: 0,
-  //       squares: createBoard(BOARD_SIZE),
-  //       location: null,
-  //     }],
-
-  //     isHistoryDesc: true,
-  //   };
-  // }
 
   //  Computed
   // --------------------
@@ -46,7 +31,7 @@ export class Game extends React.Component<GameProps, GameState> {
     return PLAYERS[currentStep % PLAYERS.length];
   }
 
-  getCurrentMove(): HistoryEntry {
+  getCurrentMove(): Move {
     const { currentStep, history } = this.state;
 
     const currentMove = history.find(item => item.stepNumber === currentStep);
@@ -58,7 +43,7 @@ export class Game extends React.Component<GameProps, GameState> {
     return currentMove;
   }
 
-  getGameWinner(): { player: Player | null, squares: MoveLocation[] } {
+  getGameWinner(): { player: Player | null, squares: SquareLocation[] } {
     const { squares } = this.getCurrentMove();
 
     for (const cond of WINNING_CONDITIONS) {
@@ -92,7 +77,7 @@ export class Game extends React.Component<GameProps, GameState> {
     };
   }
 
-  getMoveList(): HistoryEntry[] {
+  getMoveList(): Move[] {
     const { history, isHistoryDesc } = this.state;
     const sortSign = isHistoryDesc ? 1 : -1;
 
@@ -154,7 +139,7 @@ export class Game extends React.Component<GameProps, GameState> {
     return (
       <div className="game">
         <div className="game-board">
-          <Board
+          <GameBoard
             squares={currentMove.squares}
             shouldHighLight={shouldHighlightSquare}
             onClick={this.makeMove.bind(this)}
@@ -171,7 +156,7 @@ export class Game extends React.Component<GameProps, GameState> {
             Sort move list: {this.state.isHistoryDesc ? '↓' : '↑'}
           </button>
 
-          <MoveList
+          <MoveHistory
             currentStep={currentMove.stepNumber}
             history={moveList}
             onClickItem={this.jumpTo.bind(this)}

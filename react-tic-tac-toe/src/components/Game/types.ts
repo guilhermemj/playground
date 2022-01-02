@@ -1,9 +1,9 @@
-import { HistoryEntry } from "../../types";
+import { Move } from "../../types";
 
 export type GameProps = {};
 
 export type GameState = {
   currentStep: number;
-  history: HistoryEntry[];
+  history: Move[];
   isHistoryDesc: boolean;
 };

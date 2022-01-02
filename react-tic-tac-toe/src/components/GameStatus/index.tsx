@@ -24,7 +24,7 @@ export const GameStatus = ({
 
   return (
     <div>You're not supposed to see this.</div>
-  )
+  );
 };
 
 export default GameStatus;

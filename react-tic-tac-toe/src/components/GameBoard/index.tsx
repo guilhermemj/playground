@@ -1,16 +1,16 @@
-import Square from '../Square';
-import { BoardProps } from './types';
+import GameBoardSquare from '../GameBoardSquare';
+import { GameBoardProps } from './types';
 
-export const Board = ({
+export const GameBoard = ({
   squares,
   shouldHighLight = () => false,
   onClick = () => {},
-}: BoardProps) => (
+}: GameBoardProps) => (
   <div>
     {squares.map((cols, row) => (
       <div className="board-row" key={row}>
         {cols.map((value, col) => (
-          <Square
+          <GameBoardSquare
             key={col}
             value={value}
             isHighLight={shouldHighLight(row, col)}
@@ -22,4 +22,4 @@ export const Board = ({
   </div>
 );
 
-export default Board;
+export default GameBoard;

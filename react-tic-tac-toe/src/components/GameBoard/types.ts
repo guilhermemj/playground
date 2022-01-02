@@ -1,7 +1,7 @@
-import { BoardSquare } from "../../types";
+import { BoardState } from "../../types";
 
-export type BoardProps = {
-  squares: BoardSquare[][];
+export type GameBoardProps = {
+  squares: BoardState;
   shouldHighLight: (row: number, col: number) => boolean;
   onClick: (row: number, col: number) => void;
 };

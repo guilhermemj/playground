@@ -1,13 +1,13 @@
-import { BoardSquare } from "./types";
+import { BoardState } from "./types";
 
-export function createBoard(configStr: string): BoardSquare[][] {
+export function createEmptyBoard(boardSize: string): BoardState {
   const REGEX = /\d[xX]\d/;
 
-  if (!REGEX.test(configStr)) {
-    throw new Error('Invalid board config');
+  if (!REGEX.test(boardSize)) {
+    throw new Error('Invalid board size');
   }
 
-  const [cols, rows] = configStr.toLowerCase().split('x').map((size) => Number.parseInt(size, 10));
+  const [cols, rows] = boardSize.toLowerCase().split('x').map((size) => Number.parseInt(size, 10));
 
   return Array(rows).fill(Array(cols).fill(null));
 }
