@@ -1,21 +1,38 @@
-import MoveHistoryItem from '../MoveHistoryItem';
+import { useMemo, useState } from 'react';
+import MoveHistoryList from '../MoveHistoryList';
 import { MoveHistoryProps } from './types';
+import { SortButton, Title, Wrapper } from './styles';
 
 export const MoveHistory = ({
   history,
-  currentStep,
+  shouldHighlightItem = () => false,
   onClickItem = () => {},
-}: MoveHistoryProps) => (
-  <ol className="move-list">
-    {history.map((move) => (
-      <MoveHistoryItem
-        key={move.stepNumber}
-        move={move}
-        isCurrent={currentStep === move.stepNumber}
-        onClick={() => onClickItem(move.stepNumber)}
+}: MoveHistoryProps) => {
+  const [isHistoryDesc, setIsHistoryDesc] = useState(false);
+
+  const moveList = useMemo(() => {
+    const sortSign = isHistoryDesc ? -1 : 1;
+
+    return [...history].sort((a, b) => (a.stepNumber - b.stepNumber) * sortSign);
+  }, [history, isHistoryDesc]);
+
+  return (
+    <Wrapper>
+      <Title>
+        Move History
+
+        <SortButton onClick={() => setIsHistoryDesc(curr => !curr)}>
+          {isHistoryDesc ? '↑' : '↓'}
+        </SortButton>
+      </Title>
+
+      <MoveHistoryList
+        items={moveList}
+        shouldHighlightItem={shouldHighlightItem}
+        onClickItem={onClickItem}
       />
-    ))}
-  </ol>
-);
+    </Wrapper>
+  );
+};
 
 export default MoveHistory;

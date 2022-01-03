@@ -1,4 +1,4 @@
-import { BoardState } from "../../types";
+import { BoardState } from "../../global/types";
 
 export type GameBoardProps = {
   squares: BoardState;

@@ -1,4 +1,4 @@
-import { Player, WinCondition } from "../../types";
+import { Player, WinCondition } from "../../global/types";
 
 export type GameProps = {
   players: Player[];

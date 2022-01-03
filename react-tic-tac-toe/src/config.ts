@@ -1,4 +1,4 @@
-import { Player, WinCondition } from "./types";
+import { Player, WinCondition } from "./global/types";
 
 export const PLAYERS: Player[] = ['X', 'O'];
 export const BOARD_SIZE: string = '3x3';

@@ -1,4 +1,4 @@
-import { GameResults, Player } from "../../types";
+import { GameResults, Player } from "../../global/types";
 
 export type GameStatusProps = {
   gameResults: GameResults;
