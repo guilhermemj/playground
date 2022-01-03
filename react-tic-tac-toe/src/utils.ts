@@ -1,4 +1,4 @@
-import { BoardState } from "./types";
+import { BoardState } from "./global/types";
 
 export function createEmptyBoard(boardSize: string): BoardState {
   const REGEX = /\d[xX]\d/;

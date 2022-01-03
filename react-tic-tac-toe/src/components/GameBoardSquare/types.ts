@@ -1,7 +1,7 @@
-import { SquareState } from '../../types';
+import { SquareState } from '../../global/types';
 
 export type GameBoardSquareProps = {
   value: SquareState;
-  isHighLight?: boolean;
+  highlight?: boolean;
   onClick?: () => void;
 };

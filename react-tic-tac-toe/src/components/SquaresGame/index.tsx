@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { GameResults, Move, Player, WinCondition, BoardState } from '../../types';
+import { GameResults, Move, Player, WinCondition, BoardState } from '../../global/types';
 import { cloneObject, createEmptyBoard } from '../../utils';
 
 import GameBoard from '../GameBoard';
@@ -8,6 +8,7 @@ import GameStatus from '../GameStatus';
 import MoveHistory from '../MoveHistory';
 
 import { GameProps } from './types';
+import { GameWrapper, GameBoardWrapper, GameHistoryWrapper } from './styles';
 
 function getCurrentPlayer(players: Player[], currentStep: number): Player {
   return players[currentStep % players.length];
@@ -48,12 +49,6 @@ function getGameResults(boardState: BoardState, winConditions: WinCondition[]): 
     winner,
     winnerSquares,
   };
-}
-
-function getMoveList(history: Move[], isHistoryDesc: Boolean): Move[] {
-  const sortSign = isHistoryDesc ? -1 : 1;
-
-  return [...history].sort((a, b) => (a.stepNumber - b.stepNumber) * sortSign);
 }
 
 export const SquaresGame = ({
@@ -99,37 +94,29 @@ export const SquaresGame = ({
     );
   }
 
-  // TODO: Move to MoveHistory
-  const [isHistoryDesc, setIsHistoryDesc] = useState(false);
-  const moveList = useMemo(() => getMoveList(history, isHistoryDesc), [history, isHistoryDesc]);
-
   return (
-    <div className="game">
-      <div className="game-board">
-        <GameBoard
-          squares={boardState}
-          shouldHighLight={shouldHighlightSquare}
-          onClickSquare={makeMove}
-        />
-      </div>
-
-      <div className="game-info">
+    <GameWrapper>
+      <GameBoardWrapper>
         <GameStatus
           gameResults={gameResults}
           currentPlayer={currentPlayer}
         />
 
-        <button onClick={() => setIsHistoryDesc(curr => !curr)}>
-          Sort move list: {isHistoryDesc ? '↑' : '↓'}
-        </button>
+        <GameBoard
+          squares={boardState}
+          shouldHighLight={shouldHighlightSquare}
+          onClickSquare={makeMove}
+        />
+      </GameBoardWrapper>
 
+      <GameHistoryWrapper>
         <MoveHistory
-          currentStep={currentStep}
-          history={moveList}
+          history={history}
+          shouldHighlightItem={(step) => currentStep === step}
           onClickItem={(step) => setCurrentStep(step)}
         />
-      </div>
-    </div>
+      </GameHistoryWrapper>
+    </GameWrapper>
   );
 };
 

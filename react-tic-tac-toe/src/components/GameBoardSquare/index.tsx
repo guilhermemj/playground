@@ -1,13 +1,16 @@
 import { GameBoardSquareProps } from './types';
+import { Button } from './styles';
+
+import classNames from 'classnames';
 
 export const GameBoardSquare = ({
   value,
-  isHighLight = false,
+  highlight = false,
   onClick = () => {},
 }: GameBoardSquareProps) => (
-  <button className={ 'square' + (isHighLight ? ' highlight' : '')} onClick={onClick}>
+  <Button className={classNames({ highlight })} onClick={onClick}>
     {value}
-  </button>
+  </Button>
 );
 
 export default GameBoardSquare;

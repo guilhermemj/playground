@@ -1,25 +1,26 @@
 import GameBoardSquare from '../GameBoardSquare';
 import { GameBoardProps } from './types';
+import { BoardRow, BoardWrapper } from './styles';
 
 export const GameBoard = ({
   squares,
   shouldHighLight = () => false,
   onClickSquare = () => {},
 }: GameBoardProps) => (
-  <div>
+  <BoardWrapper>
     {squares.map((cols, row) => (
-      <div className="board-row" key={row}>
+      <BoardRow key={row}>
         {cols.map((value, col) => (
           <GameBoardSquare
             key={col}
             value={value}
-            isHighLight={shouldHighLight(row, col)}
+            highlight={shouldHighLight(row, col)}
             onClick={() => onClickSquare(row, col)}
           />
         ))}
-      </div>
+      </BoardRow>
     ))}
-  </div>
+  </BoardWrapper>
 );
 
 export default GameBoard;
