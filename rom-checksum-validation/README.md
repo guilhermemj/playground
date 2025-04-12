@@ -5,10 +5,10 @@ Validate your ROM files against known "good copies". This script was created wit
 > We are legally obliged to say that downloading ROMs of games you do not own is piracy. We won't provide any files or links to sites where you can download them.
 
 ## Instructions
-1. Drop your ROMs in the `/roms` folder
+1. Drop your ROMs in the `/input-roms` folder
 2. Add your reference `.dat` files in the `database` folder
 3. Adjust the `CHECKSUM_CONFIG` constant with proper extension/database mapping
-4. Run `node scripts.js` and check the results
+4. Run `node scripts.js` and check the results. Valid ROMs will be copied to the `validated-roms` folder and renamed according to the database.
 
 > [!TIP]
 > You can find some database files in https://github.com/libretro/libretro-database/, mostly in `/metadat/no-intro` and `/metadat/redump` folders.

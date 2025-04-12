@@ -3,8 +3,9 @@ const crypto = require('crypto');
 const path = require('path');
 
 // Configuration
-const ROMS_FOLDER = './roms';
+const ROMS_FOLDER = './input-roms';
 const CHECKSUM_FOLDER = './database';
+const OUTPUT_FOLDER = './validated-roms';
 
 const CHECKSUM_CONFIG = {
   '.sfc': 'Nintendo - Super Nintendo Entertainment System.dat',
@@ -105,8 +106,38 @@ async function validateFiles() {
     return results;
   } catch (error) {
     console.error('Error:', error.message);
+    return [];
   }
 }
 
-// Call function
-validateFiles();
+// Function to copy and rename validated ROMs
+async function copyValidatedRoms(results) {
+  // Create output directory if it doesn't exist
+  if (!fs.existsSync(OUTPUT_FOLDER)) {
+    fs.mkdirSync(OUTPUT_FOLDER, { recursive: true });
+  }
+
+  for (const result of results) {
+    if (result.matches) {
+      const sourceFile = path.join(ROMS_FOLDER, result.filename);""
+      const targetFile = path.join(OUTPUT_FOLDER, result.expectedFilename);
+
+      try {
+        fs.copyFileSync(sourceFile, targetFile);
+        console.log(`Successfully copied and renamed: ${result.filename} -> ${result.expectedFilename}`);
+      } catch (error) {
+        console.error(`Error copying ${result.filename}:`, error.message);
+      }
+    }
+  }
+}
+
+// Execute validation and copying
+async function main() {
+  const results = await validateFiles();
+  if (results.length > 0) {
+    await copyValidatedRoms(results);
+  }
+}
+
+main();

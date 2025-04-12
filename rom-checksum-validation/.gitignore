@@ -1,2 +1,4 @@
-roms/*
-!roms/.gitkeep
+input-roms/*
+validated-roms/*
+!input-roms/.gitkeep
+!validated-roms/.gitkeep
