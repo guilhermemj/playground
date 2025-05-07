@@ -9,7 +9,9 @@ const OUTPUT_FOLDER = './validated-roms';
 
 const CHECKSUM_CONFIG = {
   '.sfc': 'Nintendo - Super Nintendo Entertainment System.dat',
-  '.gba': 'Nintendo - Game Boy Advance.dat'
+  '.smc': 'Nintendo - Super Nintendo Entertainment System.dat',
+  '.gba': 'Nintendo - Game Boy Advance.dat',
+  '.bin': 'Sony - PlayStation.dat',
   // Add more mappings as needed
 };
 
@@ -119,7 +121,7 @@ async function copyValidatedRoms(results) {
 
   for (const result of results) {
     if (result.matches) {
-      const sourceFile = path.join(ROMS_FOLDER, result.filename);""
+      const sourceFile = path.join(ROMS_FOLDER, result.filename);
       const targetFile = path.join(OUTPUT_FOLDER, result.expectedFilename);
 
       try {
@@ -135,7 +137,7 @@ async function copyValidatedRoms(results) {
 // Execute validation and copying
 async function main() {
   const results = await validateFiles();
-  if (results.length > 0) {
+  if (results.length > 0 && !process.argv.includes('--skipCopy')) {
     await copyValidatedRoms(results);
   }
 }
