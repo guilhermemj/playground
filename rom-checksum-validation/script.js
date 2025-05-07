@@ -97,7 +97,8 @@ async function validateFiles() {
       results.push({
         filename: file,
         md5: actualMD5,
-        matches: !!expectedFileName,
+        md5Matches: !!expectedFileName,
+        nameMatches: expectedFileName === file,
         expectedFilename: expectedFileName ?? 'Unknown ROM',
       });
     }
@@ -120,13 +121,17 @@ async function copyValidatedRoms(results) {
   }
 
   for (const result of results) {
-    if (result.matches) {
+    if (result.md5Matches) {
       const sourceFile = path.join(ROMS_FOLDER, result.filename);
       const targetFile = path.join(OUTPUT_FOLDER, result.expectedFilename);
 
       try {
         fs.copyFileSync(sourceFile, targetFile);
-        console.log(`Successfully copied and renamed: ${result.filename} -> ${result.expectedFilename}`);
+        if (result.nameMatches) {
+          console.log(`Successfully copied: ${result.filename}`);
+        } else {
+          console.log(`Successfully copied and renamed: ${result.filename} -> ${result.expectedFilename}`);
+        }
       } catch (error) {
         console.error(`Error copying ${result.filename}:`, error.message);
       }
