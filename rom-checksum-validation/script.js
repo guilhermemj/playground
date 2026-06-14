@@ -9,6 +9,7 @@ const OUTPUT_FOLDER = './validated-roms';
 
 const CHECKSUM_CONFIG = {
   '.gba': 'Nintendo - Game Boy Advance.dat',
+  '.gbc': 'Nintendo - Game Boy Color.dat',
   '.sfc': 'Nintendo - Super Nintendo Entertainment System.dat',
   '.smc': 'Nintendo - Super Nintendo Entertainment System.dat',
   '.z64': 'Nintendo - Nintendo 64.dat',
